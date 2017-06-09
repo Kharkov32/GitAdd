@@ -757,7 +757,7 @@ label {
 .store__hero {
   position: relative;
   padding: 0 10px 0 10px;
-  text-align: right; }
+  text-align: left; }
   .store__hero:before {
     display: block;
     content: '';
@@ -766,7 +766,7 @@ label {
     width: 100%;
     top: 0;
     right: 0;
-    background: linear-gradient(45deg, #05b3d6 0%, rgba(5, 179, 214, 0) 70%), linear-gradient(135deg, #0958ec 10%, rgba(9, 88, 236, 0) 80%), linear-gradient(225deg, #d209ec 10%, rgba(210, 9, 236, 0) 80%), linear-gradient(315deg, #05e129 100%, rgba(5, 225, 41, 0) 70%);
+    background: linear-gradient(45deg, #05b3d6 0%, rgba(5, 179, 214, 0) 70%), linear-gradient(135deg, #0958ec 10%, rgba(9, 88, 236, 0) 80%), linear-gradient(225deg, rgba(210, 9, 236, 0.7) 10%, rgba(210, 9, 236, 0) 80%), linear-gradient(315deg, #05e129 100%, rgba(5, 225, 41, 0) 70%);
     opacity: 0.6;
     z-index: 1; }
   .store__hero img {
