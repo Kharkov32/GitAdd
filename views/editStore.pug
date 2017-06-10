@@ -1,8 +1,11 @@
 extends layout
 
 include mixins/_storeForm
+include mixins/_productForm
 
 block content
   .inner
     h2= title
     +storeForm(store)
+    h3 Add/Edit Products
+    +productForm(product, store)

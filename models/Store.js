@@ -103,8 +103,16 @@ storeSchema.virtual('reviews', {
   foreignField: 'store' // which field on the review?
 });
 
+// find reviews where the stores _id property === reviews store property
+storeSchema.virtual('products', {
+  ref: 'Product', // what model to link?
+  localField: '_id', // which field on the store?
+  foreignField: 'store' // which field on the review?
+});
+
 function autopopulate(next) {
   this.populate('reviews');
+  this.populate('products');
   next();
 }
 

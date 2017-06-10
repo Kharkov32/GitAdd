@@ -1,9 +1,13 @@
+const fs = require('fs');
 const mongoose = require('mongoose');
 const Store = mongoose.model('Store');
 const User = mongoose.model('User');
 const multer = require('multer');
 const jimp = require('jimp');
 const uuid = require('uuid');
+const AWS = require('aws-sdk');
+AWS.config.loadFromPath('./aws.config.json');
+const s3 = new AWS.S3({region: 'us-east-1'});
 
 const multerOptions = {
   storage: multer.memoryStorage(),
@@ -35,12 +39,29 @@ exports.resize = async (req, res, next) => {
   }
   const extension = req.file.mimetype.split('/')[1];
   req.body.photo = `${uuid.v4()}.${extension}`;
-  // now we resize
-  const photo = await jimp.read(req.file.buffer);
-  await photo.resize(800, jimp.AUTO);
-  await photo.write(`./public/uploads/${req.body.photo}`);
-  // once we have written the photo to our filesystem, keep going!
-  next();
+  // Resize and write
+  const file = await jimp.read(req.file.buffer);
+  await file.resize(800, jimp.AUTO);
+  // Upload to s3
+  await file.getBuffer('image/png', function(err, image) {
+    const params = {
+      Bucket: 'cbdoilmaps-public-images',
+      Key: 'stores/' + req.body.photo,
+      Body: image,
+      ContentType: 'image/png',
+      ACL: 'public-read'
+    };
+    const putObjectPromise = s3.putObject(params).promise();
+    putObjectPromise
+      .then(function(data) {
+        next();
+      })
+      .catch(function(err) {
+        console.log(err);
+        req.flash('error', 'Failed to upload image!');
+        res.redirect('back');
+      });
+  });
 };
 
 exports.createStore = async (req, res) => {
@@ -72,7 +93,7 @@ exports.getStores = async (req, res) => {
     return;
   }
 
-  res.render('stores', { title: 'Stores', stores, page, pages, count });
+  res.render('stores', { title: 'All Stores', stores, page, pages, count });
 };
 
 const confirmOwner = (store, user) => {
@@ -105,7 +126,7 @@ exports.updateStore = async (req, res) => {
 };
 
 exports.getStoreBySlug = async (req, res, next) => {
-  const store = await Store.findOne({ slug: req.params.slug }).populate('author reviews');
+  const store = await Store.findOne({ slug: req.params.slug }).populate('author');
   if (!store) return next();
   res.render('store', { store, title: store.name });
 };
@@ -185,5 +206,5 @@ exports.getHearts = async (req, res) => {
 
 exports.getTopStores = async (req, res) => {
   const stores = await Store.getTopStores();
-  res.render('topStores', { stores, title:'⭐ Top Stores!'});
+  res.render('topStores', { stores, title:'Top 10 Stores'});
 }
