@@ -1051,8 +1051,10 @@ function loadPlaces(map) {
   _axios2.default.get('/api/stores/near?lat=' + lat + '&lng=' + lng).then(function (res) {
     var places = res.data;
     if (!places.length) {
-      alert('no places found!');
+      (0, _bling.$)('[name="geolocate"]').style.borderColor = "red";
       return;
+    } else {
+      (0, _bling.$)('[name="geolocate"]').style.borderColor = "";
     }
     // create a bounds
     var bounds = new google.maps.LatLngBounds();
@@ -1074,7 +1076,7 @@ function loadPlaces(map) {
     markers.forEach(function (marker) {
       return marker.addListener('click', function () {
         console.log(this.place);
-        var html = '\n          <div class="popup">\n            <a href="/store/' + this.place.slug + '">\n              <img src="/uploads/' + (this.place.photo || 'store.png') + '" alt="' + this.place.name + '" />\n              <p>' + this.place.name + ' - ' + this.place.location.address + '</p>\n            </a>\n          </div>\n        ';
+        var html = '\n          <div class="popup">\n            <a href="/store/' + this.place.slug + '">\n              <img src="https://s3.amazonaws.com/cbdoilmaps-public-images/stores/' + (this.place.photo || 'store.png') + '" alt="' + this.place.name + '" />\n              <p>' + this.place.name + ' - ' + this.place.location.address + '</p>\n            </a>\n          </div>\n        ';
         infoWindow.setContent(html);
         infoWindow.open(map, this);
       });

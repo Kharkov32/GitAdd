@@ -14,6 +14,7 @@ mongoose.connection.on('error', (err) => {
 
 // import all of our models
 require('./models/Store');
+require('./models/Promoted');
 require('./models/Product');
 require('./models/User');
 require('./models/Review');

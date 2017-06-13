@@ -6,7 +6,7 @@ include mixins/_review
 block content
   .single
     .single__hero
-      img.single__image(src=`/uploads/${store.photo || 'store.png'}`)
+      img.single__image(src=`https://s3.amazonaws.com/cbdoilmaps-public-images/stores/${store.photo || 'store.png'}`)
       h2.title.title--single
         a(href=`/store/${store.slug}`) #{store.name}
 
@@ -21,7 +21,7 @@ block content
           li.tag
             a.tag__link(href=`/tags/${tag}`)
               span.tag__text  ##{tag}
-    
+
     if store.products
       ul.tags
         each p in store.products

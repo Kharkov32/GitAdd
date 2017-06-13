@@ -28,6 +28,25 @@ exports.isLoggedIn = (req, res, next) => {
   res.redirect('/login');
 };
 
+exports.isVendor = (req, res, next) => {
+  if (req.user.vendor) {
+    next();
+    return;
+  }
+  req.flash('error', 'Oops you must be a vendor to do that!');
+  res.redirect('back');
+};
+
+exports.isNotVendor = (req, res, next) => {
+  // first check if the user is authenticated
+  if (!req.user.vendor) {
+    next();
+    return;
+  }
+  req.flash('error', 'Oops you can\'t be a vendor and do that!');
+  res.redirect('back');
+};
+
 exports.forgot = async (req, res) => {
   // 1. See if a user with that email exists
   const user = await User.findOne({ email: req.body.email });

@@ -1,4 +1,4 @@
-mixin storeCard(store = {})
+mixin promotedStoreCard(store = {})
   .store
     .store__hero
       .store__actions
@@ -23,3 +23,4 @@ mixin storeCard(store = {})
         a(href=`/store/${store.slug}`) #{store.name}
     .store__details
       p= store.description.split(' ').slice(0, 25).join(' ')
+      p Promoted content

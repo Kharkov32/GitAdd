@@ -11,8 +11,10 @@ function loadPlaces(map, lat = 43.2, lng = -79.8) {
     .then(res => {
       const places = res.data;
       if (!places.length) {
-        alert('no places found!');
+        $('[name="geolocate"]').style.borderColor = "red";
         return;
+      } else {
+        $('[name="geolocate"]').style.borderColor = "";
       }
       // create a bounds
       const bounds = new google.maps.LatLngBounds();
@@ -33,7 +35,7 @@ function loadPlaces(map, lat = 43.2, lng = -79.8) {
         const html = `
           <div class="popup">
             <a href="/store/${this.place.slug}">
-              <img src="/uploads/${this.place.photo || 'store.png'}" alt="${this.place.name}" />
+              <img src="https://s3.amazonaws.com/cbdoilmaps-public-images/stores/${this.place.photo || 'store.png'}" alt="${this.place.name}" />
               <p>${this.place.name} - ${this.place.location.address}</p>
             </a>
           </div>

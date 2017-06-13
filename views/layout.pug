@@ -18,6 +18,11 @@ html
                 a.nav__link(href=item.slug, class=(currentPath.startsWith(item.slug) ? 'nav__link--active' : ''))
                   != h.icon(item.icon)
                   span #{item.title}
+            if user && user.vendor
+              li.nav__item
+                  a.nav__link(href='/add', class=(currentPath.startsWith('/add') ? 'nav__link--active' : ''))
+                    != h.icon('add')
+                    span Add
           .nav__section.nav__section--search
             .search
               input.search__input(type="text" placeholder="Name or Location..." name="search")
@@ -49,6 +54,9 @@ html
     .content
       block content
         p This is the default!
+
+    a.nav__link.nav__link--logo(href="/add")
+                != h.icon('add')
 
     block scripts
       script(src=`https://maps.googleapis.com/maps/api/js?key=${process.env.MAP_KEY}&libraries=places`)

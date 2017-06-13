@@ -10,6 +10,10 @@ exports.registerForm = (req, res) => {
   res.render('register', { title: 'Register' });
 };
 
+exports.registerVendorForm = (req, res) => {
+  res.render('registerVendor', { title: 'Register as a Vendor' });
+};
+
 exports.validateRegister = (req, res, next) => {
   req.sanitizeBody('name');
   req.checkBody('name', 'You must supply a name!').notEmpty();
@@ -27,16 +31,22 @@ exports.validateRegister = (req, res, next) => {
   if (errors) {
     req.flash('error', errors.map(err => err.msg));
     res.render('register', { title: 'Register', body: req.body, flashes: req.flash() });
-    return; // stop the fn from running
+    return;
   }
-  next(); // there were no errors!
+  next();
 };
 
 exports.register = async (req, res, next) => {
   const user = new User({ email: req.body.email, name: req.body.name });
   const register = promisify(User.register, User);
   await register(user, req.body.password);
-  next(); // pass to authController.login
+  next();
+};
+exports.registerVendor = async (req, res, next) => {
+  const user = new User({ email: req.body.email, name: req.body.name, vendor: true });
+  const register = promisify(User.register, User);
+  await register(user, req.body.password);
+  next();
 };
 
 exports.account = (req, res) => {

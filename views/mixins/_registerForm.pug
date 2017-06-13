@@ -1,12 +1,7 @@
-extends layout
-
-include mixins/_registerForm
-
-block content
+mixin registerForm()
   .inner
-    +registerForm()
-    form.form(action="/register/vendor" method="POST")
-      h2 Register as a Vendor
+    form.form(action="/register" method="POST")
+      h2 Register
       label(for="name") Name
       input(type="text" name="name")
       label(for="email") Email
