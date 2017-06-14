@@ -53,10 +53,45 @@ html
                   button.flash__remove(onClick="this.parentElement.remove()") &times;
     .content
       block content
-        p This is the default!
+        p CBD Oil Maps
 
-    a.nav__link.nav__link--logo(href="/add")
-                != h.icon('add')
+    footer.footer
+      .footer__section.footer__section--pages
+        li.footer__item
+          a.footer__link.footer__link--logo(href="/")
+            != h.icon('logo')
+          a.footer__link(href='mailto:Contact@CBDOilMaps.com')
+            span Contact@CBDOilMaps.com
+          a.footer__link(href='tel:+622025550117')
+            span +62 202 555 0117
+
+        li.footer__item
+          h3.footer__link.footer__link--title Company
+          a.footer__link(href='#')
+            span About Us
+          a.footer__link(href='#')
+            span Privacy Policy
+          a.footer__link(href='#')
+            span Terms &amp; Conditions
+          a.footer__link(href='#')
+            span Contact Us
+
+        li.footer__item
+          h3.footer__link.footer__link--title Other Links
+          a.footer__link(href='#')
+            span What is CBD Oil?
+          a.footer__link(href='#')
+            span List Your Service
+          a.footer__link(href='#')
+            span Help &amp; Support
+          a.footer__link(href='#')
+            span Sitemap
+
+        li.footer__item
+          h3.footer__link.footer__link--title Newsletter
+          span.footer__link.footer__link--nolink Sign up to our newsletter to get special offers &amp; updates!
+          .footer__search
+            input.footer__search--search__input(type="text" placeholder="Your@email.com" name="search")
 
     block scripts
       script(src=`https://maps.googleapis.com/maps/api/js?key=${process.env.MAP_KEY}&libraries=places`)

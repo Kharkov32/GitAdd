@@ -14,7 +14,7 @@ exports.registerVendorForm = (req, res) => {
   res.render('registerVendor', { title: 'Register as a Vendor' });
 };
 
-exports.validateRegister = (req, res, next) => {
+exports.validateRegister = async (req, res, next) => {
   req.sanitizeBody('name');
   req.checkBody('name', 'You must supply a name!').notEmpty();
   req.checkBody('email', 'That Email is not valid!').isEmail();
@@ -33,7 +33,15 @@ exports.validateRegister = (req, res, next) => {
     res.render('register', { title: 'Register', body: req.body, flashes: req.flash() });
     return;
   }
-  next();
+  const exists = await User.findOne({ email: req.body.email });
+  console.log(exists);
+  if (!exists) {
+    next();
+  } else {
+    req.flash('error', 'User with that email already exists!');
+    res.render('register', { title: 'Register', body: req.body, flashes: req.flash() });
+    return;
+  }
 };
 
 exports.register = async (req, res, next) => {

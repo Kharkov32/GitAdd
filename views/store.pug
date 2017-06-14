@@ -1,6 +1,7 @@
 extends layout
 
 include mixins/_reviewForm
+include mixins/_storeProduct
 include mixins/_review
 
 block content
@@ -23,10 +24,9 @@ block content
               span.tag__text  ##{tag}
 
     if store.products
-      ul.tags
+      .products
         each p in store.products
-          li
-            span= p.name
+          +storeProduct(p)
 
     if user
       +reviewForm(store)

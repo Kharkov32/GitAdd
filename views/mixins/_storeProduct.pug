@@ -1,0 +1,8 @@
+mixin storeProduct(product = {})
+  .product
+    .product__hero
+      img(src=`https://s3.amazonaws.com/cbdoilmaps-public-images/stores/${product.photo || 'store.png'}`)
+      h2.title
+        span= product.name
+    .product__details
+      p= product.description

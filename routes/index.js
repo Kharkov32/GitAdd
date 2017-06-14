@@ -53,14 +53,14 @@ router.get('/tags/:tag', catchErrors(storeController.getStoresByTag));
 // User
 router.get('/register', userController.registerForm);
 router.post('/register',
-  userController.validateRegister,
-  userController.register,
+  catchErrors(userController.validateRegister),
+  catchErrors(userController.register),
   authController.login
 );
 // Vendor
 router.post('/register/vendor',
-  userController.validateRegister,
-  userController.registerVendor,
+  catchErrors(userController.validateRegister),
+  catchErrors(userController.registerVendor),
   authController.login
 );
 // Generic User

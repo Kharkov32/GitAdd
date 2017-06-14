@@ -1,0 +1,129 @@
+.footer {
+  display: flex;
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+  background: $black;
+  &__section {
+    display: flex;
+  }
+  &__item {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-basis: 0;
+  }
+  &__link {
+    background: $black;
+    color: white;
+    padding: 0.5rem 2rem 0.5rem 2rem;
+    display: inline-block;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: left;
+    transition: transform 0.2s;
+    border-bottom: 5px solid transparent;
+    svg {
+      width: 40px;
+      transition: all 0.2s;
+      fill: white;
+      margin-bottom: 1rem;
+    }
+    &:hover {
+      text-decoration: underline;
+    }
+    &--logo {
+      &:hover {
+        svg {
+          transform: none;
+          path { fill: white; }
+        }
+      }
+      svg {
+        width: 200px;
+        margin: 0;
+      }
+    }
+    &--title {
+      font-size: 2rem;
+      font-family: 'Panama';
+      font-weight: 600;
+      letter-spacing: -1px;
+      -webkit-margin-before: 0;
+      -webkit-margin-after: 0;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+    &--nolink:hover {
+      text-decoration: none;
+    }
+  }
+  &__search {
+    color: white;
+    &--search__input {
+      width: 90%;
+      font-size: 1.5rem;
+      background: none;
+      color: white;
+      outline: 0;
+      border: 1px solid;
+    }
+  }
+}
+
+
+@media all and (max-width: 1200px) {
+  .footer {
+    &__link {
+      padding-left: 1rem;
+      padding-right: 1rem;
+      svg {
+        width: 30px;
+      }
+      &--logo {
+        svg {
+          width: 80%;
+        }
+      }
+    }
+  }
+}
+
+@media all and (max-width: 900px) {
+  .footer {
+    flex-wrap:wrap;
+    &__section {
+      flex-wrap:wrap;
+      order: 1;
+    }
+  }
+}
+
+@media all and (max-width: 650px) {
+  .footer {
+    &__section {
+      width: 100%;
+      &--user {
+        
+      }
+    }
+    &__item {
+      width: 33.333333%;
+    }
+    &__link {
+      width: 100%;
+      svg {
+        max-width: 100%;
+      }
+      &--logo {
+        svg {
+          width:100%;
+        }
+      }
+    }
+  }
+}
