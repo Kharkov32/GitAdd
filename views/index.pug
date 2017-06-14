@@ -8,7 +8,8 @@ block content
   .inner
     h2= title
     .stores
-      each p in promoted
-        +promotedStoreCard(p.store)
+      if promoted
+        each p in promoted
+          +promotedStoreCard(p.store)
       each store in stores
         +storeCard(store)

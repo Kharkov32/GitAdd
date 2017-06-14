@@ -79,14 +79,14 @@ exports.resize = async (req, res, next) => {
 exports.createStore = async (req, res) => {
   req.body.author = req.user._id;
   const store = await (new Store(req.body)).save();
-  req.flash('success', `Successfully Created ${store.name}. Care to leave a review?`);
+  req.flash('success', `Successfully Created ${store.name}.`);
   res.redirect(`/store/${store.slug}`);
 };
 
 // promoted
 exports.createPromoted = async (req, res) => {
-  req.body.store = '593ec1c13b5e98019e91e719';
-  req.body.author = '593eb16752880ff8868af99d';
+  req.body.store = req.params.store;
+  req.body.author = req.params.author;
   req.body.position = 1;
   let now = new Date();
   now.setHours(now.getHours() + 1);

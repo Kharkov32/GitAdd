@@ -85,6 +85,6 @@ router.get('/api/search', catchErrors(storeController.searchStores));
 router.get('/api/stores/near', catchErrors(storeController.mapStores));
 router.post('/api/stores/:id/heart', catchErrors(storeController.heartStore));
 // promoted
-router.post('/api/store/promote/:id', catchErrors(storeController.createPromoted));
+// router.post('/api/store/promote/:store/:author', catchErrors(storeController.createPromoted));
 
 module.exports = router;
