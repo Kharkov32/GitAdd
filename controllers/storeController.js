@@ -23,17 +23,14 @@ const multerOptions = {
 };
 
 exports.homePage = async (req, res) => {
-  const promoted = await Promoted
-    .find()
-    .limit(3)
-    .sort({ position: 'desc' });
+  const promoted = await Promoted.findOne({position: 1});
 
   const stores = await Store
     .find()
-    .limit(3)
+    .limit(6)
     .sort({ created: 'desc' });
   
-  res.render('index', { title: 'Home', promoted, stores });
+  res.render('index', { title: 'Newest Stores', promoted, stores });
 };
 
 exports.addStore = (req, res) => {
@@ -113,7 +110,7 @@ exports.getStores = async (req, res) => {
   const [stores, count] = await Promise.all([storesPromise, countPromise]);
   const pages = Math.ceil(count / limit);
   if (!stores.length && skip) {
-    req.flash('info', `Hey! You asked for page ${page}. But that doesn't exist. So I put you on page ${pages}`);
+    req.flash('info', `You asked for page ${page}. But that doesn't exist. So I put you on page ${pages}`);
     res.redirect(`/stores/page/${pages}`);
     return;
   }

@@ -2,14 +2,13 @@ extends layout
 
 include mixins/_storeCard
 include mixins/_promotedStoreCard
-include mixins/_pagination
 
 block content
   .inner
     h2= title
     .stores
-      if promoted
-        each p in promoted
-          +promotedStoreCard(p.store)
       each store in stores
         +storeCard(store)
+        if store === stores[2]
+          .promoted
+            +promotedStoreCard(promoted.store)

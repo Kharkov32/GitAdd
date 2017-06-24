@@ -30,5 +30,6 @@ function autoPopulate(next) {
 }
 
 promotedSchema.pre('find', autoPopulate);
+promotedSchema.pre('findOne', autoPopulate);
 
 module.exports = mongoose.model('Promoted', promotedSchema);

@@ -26,6 +26,6 @@ block content
 
     if store.reviews
       .reviews
-        each review in store.reviews
+        each review in store.reviews.reverse()
           .review
             +review(review)

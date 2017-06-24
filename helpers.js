@@ -21,5 +21,6 @@ exports.icon = (name) => fs.readFileSync(`./public/images/icons/${name}.svg`);
 exports.siteName = `CBD Oil Maps`;
 
 exports.menu = [
+  { slug: '/stores', title: 'Stores', icon: 'store', },
   { slug: '/map', title: 'Map', icon: 'map', }
 ];

@@ -889,6 +889,13 @@ label {
     left: 0;
     object-fit: cover; }
 
+.promoted {
+  width: 100%; }
+  .promoted .store {
+    width: 100%; }
+    .promoted .store .store__hero {
+      min-height: 100px; }
+
 .products {
   display: -ms-flexbox;
   display: flex;
