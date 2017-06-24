@@ -3,14 +3,14 @@ html {
 }
 
 body {
-  background:#efefef;
-  &:before {
-    content: '';
-    display: block;
-    background: $cbd;
-    height: 1px;
-    width: 100%;
-  }
+  background:#FFF;
+  // &:before {
+  //   content: '';
+  //   display: block;
+  //   background: $cbd;
+  //   height: 1px;
+  //   width: 100%;
+  // }
 }
 
 .inner {

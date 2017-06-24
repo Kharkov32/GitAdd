@@ -4,7 +4,9 @@
   margin: 0;
   padding: 0;
   justify-content: space-between;
-  background: $black;
+  background: #FFF;
+  border-bottom: 1px solid #e5e5e5;
+  box-shadow: $shad;
   &__section {
     display: flex;
     &--search {
@@ -15,8 +17,8 @@
     display: flex;
   }
   &__link {
-    background: $black;
-    color: white;
+    background: #FFF;
+    color: $black;
     border-right: 1px solid rgba(255,255,255,0.1);
     text-transform: uppercase;
     padding: 1.2rem 2rem 1rem 2rem;
@@ -30,23 +32,28 @@
     svg {
       width: 40px;
       transition: all 0.2s;
-      fill: white;
+      fill: $black;
       margin-bottom: 1rem;
     }
+    path { fill: $black; }
     &:hover, &--active {
       border-bottom-color: rgba(0,0,0,0.2);
       border-right-color: rgba(0,0,0,0.05);
+      color: #FFF;
+      path { fill: #FFF; }
       svg {
+        fill: #FFF;
         transform: scale(1.2)
       }
       background: $cbd;
       // background: none;
     }
     &--logo {
+      background: $cbd;
+      path { fill: #FFF; }
       &:hover {
         svg {
           transform: none;
-          path { fill: white; }
         }
       }
       svg {
