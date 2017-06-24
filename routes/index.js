@@ -46,8 +46,6 @@ router.post('/stores/:id/products/add',
   authController.isVendor,
   catchErrors(productController.addProduct)
 );
-router.get('/tags', catchErrors(storeController.getStoresByTag));
-router.get('/tags/:tag', catchErrors(storeController.getStoresByTag));
 
 // User
 router.get('/register', userController.registerForm);
