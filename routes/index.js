@@ -12,7 +12,6 @@ router.get('/', catchErrors(storeController.homePage));
 router.get('/stores', catchErrors(storeController.getStores));
 router.get('/stores/page/:page', catchErrors(storeController.getStores));
 router.get('/map', storeController.mapPage);
-router.get('/top', catchErrors(storeController.getTopStores));
 
 // Store
 router.get('/add', 
