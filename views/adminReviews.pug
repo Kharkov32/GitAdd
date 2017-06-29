@@ -1,0 +1,18 @@
+extends layout
+
+include mixins/_review
+
+block content
+  .inner
+    h2= title
+    p(style="color: red;") WARNING!!! Everything you do on this page is permanent AND NON-REVERSIBLE
+
+    if store.reviews.length > 0
+      .reviews
+        each review in store.reviews.reverse()
+          .review
+            +review(review)
+            form.form(action=`/admin/store/${store.slug}/${review._id}` method="POST")
+              input.button(type="submit" value="DELETE REVIEW")
+    else
+      p No reviews

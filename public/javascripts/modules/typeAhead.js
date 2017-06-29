@@ -46,7 +46,7 @@ function typeAhead(search) {
   searchInput.on('keyup', (e) => {
     // if they aren't pressing up, down or enter, who cares!
     if (![38, 40, 13].includes(e.keyCode)) {
-      return; // nah
+      return;
     }
     const activeClass = 'search__result--active';
     const current = search.querySelector(`.${activeClass}`);

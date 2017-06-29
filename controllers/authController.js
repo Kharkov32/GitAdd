@@ -47,6 +47,14 @@ exports.isNotVendor = (req, res, next) => {
   res.redirect('back');
 };
 
+exports.isAdmin = (req, res, next) => {
+  if (req.user && req.user.email === "adam@vendor2.com") {
+    return next();
+  }
+  req.flash('error', 'You must be an administrator to view that!');
+  res.redirect('back');
+};
+
 exports.forgot = async (req, res) => {
   // 1. See if a user with that email exists
   const user = await User.findOne({ email: req.body.email });

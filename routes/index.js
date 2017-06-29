@@ -4,6 +4,7 @@ const storeController = require('../controllers/storeController');
 const productController = require('../controllers/productController');
 const userController = require('../controllers/userController');
 const authController = require('../controllers/authController');
+const adminController = require('../controllers/adminController');
 const reviewController = require('../controllers/reviewController');
 const { catchErrors } = require('../handlers/errorHandlers');
 
@@ -73,6 +74,32 @@ router.post('/account/reset/:token',
   catchErrors(authController.update)
 );
 router.get('/hearts', authController.isLoggedIn, catchErrors(storeController.getHearts));
+// Admin section
+router.get('/admin/stores',
+  authController.isLoggedIn,
+  authController.isAdmin,
+  catchErrors(adminController.searchPage)
+);
+router.get('/admin/stores/page/:page',
+  authController.isLoggedIn,
+  authController.isAdmin,
+  catchErrors(adminController.searchPage)
+);
+router.get('/admin/store/:slug',
+  authController.isLoggedIn,
+  authController.isAdmin,
+  catchErrors(adminController.reviewsBySlug)
+);
+router.post('/admin/store/:store',
+  authController.isLoggedIn,
+  authController.isAdmin,
+  catchErrors(adminController.deleteStoreById)
+);
+router.post('/admin/store/:slug/:review',
+  authController.isLoggedIn,
+  authController.isAdmin,
+  catchErrors(adminController.deleteReviewById)
+);
 
 /*
   API

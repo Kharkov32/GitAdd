@@ -1,0 +1,18 @@
+extends layout
+
+include mixins/_storeCard
+include mixins/_adminPagination
+
+block content
+  .inner
+    h2 Stores Administration
+    p(style="color: red;") WARNING!!! Everything you do on this page is permanent AND NON-REVERSIBLE
+    .stores
+      each store in stores
+        +storeCard(store)
+        p
+          a(href=`/admin/store/${store.slug}`) REVIEWS
+        form.form(action=`/admin/store/${store._id}` method="POST")
+          input.button(type="submit" value="DELETE")
+    if (page)
+      +pagination(page, pages, count)
