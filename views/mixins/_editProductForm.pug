@@ -1,0 +1,8 @@
+mixin editProductForm(product = {}, store = {})
+  form(action=`/stores/${store._id}/products/${product._id}/edit` method="POST" class="card" /*enctype="multipart/form-data"*/)
+    label(for="name") Name
+    input(type="text" name="name" value=product.name)
+    label(for="description") Description
+    textarea(name="description")= product.description
+
+    input(type="submit" value="Save →" class="button")

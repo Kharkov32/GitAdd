@@ -2,11 +2,15 @@ extends layout
 
 include mixins/_storeForm
 include mixins/_productForm
+include mixins/_editProductForm
 
 block content
   .inner
     h2= title
     +storeForm(store)
-    if (store)
-      h3 Add/Edit Products
-      +productForm(product, store)
+    if (store && store.products)
+      h3 Edit Products
+      each product in store.products
+        +editProductForm(product, store)
+    h3 Add Product
+    +productForm(product, store)

@@ -4,10 +4,9 @@ mixin productForm(product = {}, store = {})
     input(type="text" name="name" value=product.name)
     label(for="description") Description
     textarea(name="description")= product.description
-    //- Image Upload
-    //- label(for="photo") Photo
-    //-   input(type="file" name="photo" id="photo" accept="image/gif, image/png, image/jpeg")
-    //-   if store.photo
-    //-     img(src=`/uploads/${store.photo}`, alt=store.name width=200)
+    label(for="photo") Photo
+    //input(type="file" name="photo" id="photo" accept="image/gif, image/png, image/jpeg")
+    //if product.photo
+    //  img(src=`/uploads/${product.photo}`, alt=product.name width=200)
 
     input(type="submit" value="Save →" class="button")

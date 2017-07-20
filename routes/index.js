@@ -47,6 +47,11 @@ router.post('/stores/:id/products/add',
   authController.isVendor,
   catchErrors(productController.addProduct)
 );
+router.post('/stores/:id/products/:productid/edit',
+    authController.isLoggedIn,
+    authController.isVendor,
+    catchErrors(productController.editProduct)
+);
 
 // User
 router.get('/register', userController.registerForm);

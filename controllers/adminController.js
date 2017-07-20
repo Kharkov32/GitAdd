@@ -4,14 +4,6 @@ const Store = mongoose.model('Store');
 const Product = mongoose.model('Product');
 const Review = mongoose.model('Review');
 
-// confirm delete middleware
-const confirmRemove = async (storeID, user) => {
-	const store = await Store.findOne({ _id: storeID });
-  if (!store.author.equals(user)) {
-    throw Error('You must own a store in order to edit it!');
-  }
-};
-
 exports.searchPage = async (req, res) => {
   const page = req.params.page || 1;
   const limit = 6;
@@ -37,6 +29,7 @@ exports.searchPage = async (req, res) => {
 
 exports.deleteStoreById = async (req, res) => {
   const store = await Store.findOneAndRemove({ _id: req.params.store });
+  // TODO:: Delete all related reviews, products and images
   req.flash('success', 'Deleted Store!');
   res.redirect('back');
 };
@@ -52,3 +45,5 @@ exports.deleteReviewById = async (req, res) => {
   req.flash('success', 'Deleted Review!');
   res.redirect('back');
 };
+
+// TODO:: List + Delete products

@@ -48,7 +48,7 @@ exports.isNotVendor = (req, res, next) => {
 };
 
 exports.isAdmin = (req, res, next) => {
-  if (req.user && req.user.email === "adam@vendor2.com") {
+  if (req.user && req.user.email === "manage@cbdoilmaps.com") {
     return next();
   }
   req.flash('error', 'You must be an administrator to view that!');
