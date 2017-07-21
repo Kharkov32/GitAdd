@@ -23,7 +23,8 @@ const productSchema = new mongoose.Schema({
   description: {
     type: String,
     required: 'Your product must have a description!'
-  }
+  },
+  photo: String
 });
 
 module.exports = mongoose.model('Product', productSchema);

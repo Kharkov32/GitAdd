@@ -45,11 +45,15 @@ router.post('/reviews/:id',
 router.post('/stores/:id/products/add',
   authController.isLoggedIn,
   authController.isVendor,
+  productController.upload,
+  catchErrors(productController.resize),
   catchErrors(productController.addProduct)
 );
 router.post('/stores/:id/products/:productid/edit',
     authController.isLoggedIn,
     authController.isVendor,
+    productController.upload,
+    catchErrors(productController.resize),
     catchErrors(productController.editProduct)
 );
 
