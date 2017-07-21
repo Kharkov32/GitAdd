@@ -8,9 +8,10 @@ block content
   .inner
     h2= title
     +storeForm(store)
-    if (store && store.products)
-      h3 Edit Products
-      each product in store.products
-        +editProductForm(product, store)
-    h3 Add Product
-    +productForm(product, store)
+    if (store)
+      h3 Add Product
+      +productForm(product, store)
+      if (store.products.length > 0)
+        h3 Edit Products
+        each product in store.products
+          +editProductForm(product, store)

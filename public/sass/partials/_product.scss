@@ -41,10 +41,10 @@
     top: 0;
     right: 0;
     background:
-      linear-gradient(45deg, hsla(190, 95%, 43%, 1) 0%, hsla(190, 95%, 43%, 0) 70%),
-      linear-gradient(135deg, hsla(219, 93%, 48%, 1) 10%, hsla(219, 93%, 48%, 0) 80%),
-      linear-gradient(225deg, hsla(293, 93%, 48%, 0.7) 10%, hsla(293, 93%, 48%, 0) 80%),
-      linear-gradient(315deg, hsla(130, 96%, 45%, 1) 100%, hsla(130, 96%, 45%, 0) 70%);
+            linear-gradient(45deg, hsl(0, 0%, 28%) 0%, hsla(190, 95%, 43%, 0) 70%),
+            linear-gradient(135deg, hsl(0, 0%, 27%) 10%, hsla(219, 93%, 48%, 0) 80%),
+            linear-gradient(225deg, hsla(0, 0%, 25%, 0.7) 10%, hsla(293, 93%, 48%, 0) 80%),
+            linear-gradient(315deg, hsl(0, 0%, 15%) 100%, hsla(130, 96%, 45%, 0) 70%);
     opacity: 0.6;
     z-index: 1;
   }
