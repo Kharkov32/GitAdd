@@ -1039,15 +1039,7 @@ var _bling = __webpack_require__(1);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var mapOptions = {
-  center: { lat: 43.2, lng: -79.8 },
-  zoom: 10
-};
-
-function loadPlaces(map) {
-  var lat = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 43.2;
-  var lng = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : -79.8;
-
+function loadPlaces(map, lat, lng) {
   _axios2.default.get('/api/stores/near?lat=' + lat + '&lng=' + lng).then(function (res) {
     var places = res.data;
     if (!places.length) {
@@ -1075,8 +1067,11 @@ function loadPlaces(map) {
     // when someone clicks on a marker, show the details of that place
     markers.forEach(function (marker) {
       return marker.addListener('click', function () {
-        console.log(this.place);
-        var html = '\n          <div class="popup">\n            <a href="/store/' + this.place.slug + '">\n              <img src="https://s3.amazonaws.com/cbdoilmaps-public-images/stores/' + (this.place.photo || 'store.png') + '" alt="' + this.place.name + '" />\n              <p>' + this.place.name + ' - ' + this.place.location.address + '</p>\n            </a>\n          </div>\n        ';
+        var imgHTML = '';
+        if (this.place.photo) {
+          imgHTML = '<img src="https://s3.amazonaws.com/cbdoilmaps-public-images/stores/' + (this.place.photo || 'store.png') + '" alt="' + this.place.name + '" style="max-height: 260px;" />';
+        }
+        var html = '\n          <div class="popup">\n            <a href="/store/' + this.place.slug + '">\n              ' + imgHTML + '\n              <p>' + this.place.name + ' - ' + this.place.location.address + '</p>\n            </a>\n          </div>\n        ';
         infoWindow.setContent(html);
         infoWindow.open(map, this);
       });
@@ -1090,9 +1085,30 @@ function loadPlaces(map) {
 
 function makeMap(mapDiv) {
   if (!mapDiv) return;
-  // make our map
-  var map = new google.maps.Map(mapDiv, mapOptions);
-  loadPlaces(map);
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition, noGeo);
+  }
+
+  function noGeo() {
+    setTimeout(showPosition(false), 1000);
+  }
+  function showPosition(position) {
+    var lat = 41.203323;
+    var lng = -77.194527;
+    if (position) {
+      lat = position.coords.latitude;
+      lng = position.coords.longitude;
+    }
+    // make our map
+    var map = new google.maps.Map(mapDiv, {
+      center: {
+        lat: lat,
+        lng: lng
+      },
+      zoom: 10
+    });
+    loadPlaces(map, lat, lng);
+  }
 
   var input = (0, _bling.$)('[name="geolocate"]');
   var autocomplete = new google.maps.places.Autocomplete(input);

@@ -1,12 +1,7 @@
 import axios from 'axios';
 import { $ } from './bling';
 
-const mapOptions = {
-  center: { lat: 43.2, lng: -79.8 },
-  zoom: 10
-};
-
-function loadPlaces(map, lat = 43.2, lng = -79.8) {
+function loadPlaces(map, lat, lng) {
   axios.get(`/api/stores/near?lat=${lat}&lng=${lng}`)
     .then(res => {
       const places = res.data;
@@ -31,11 +26,14 @@ function loadPlaces(map, lat = 43.2, lng = -79.8) {
 
       // when someone clicks on a marker, show the details of that place
       markers.forEach(marker => marker.addListener('click', function() {
-        console.log(this.place);
+          let imgHTML = '';
+          if (this.place.photo) {
+            imgHTML = `<img src="https://s3.amazonaws.com/cbdoilmaps-public-images/stores/${this.place.photo || 'store.png'}" alt="${this.place.name}" style="max-height: 260px;" />`;
+          }
         const html = `
           <div class="popup">
             <a href="/store/${this.place.slug}">
-              <img src="https://s3.amazonaws.com/cbdoilmaps-public-images/stores/${this.place.photo || 'store.png'}" alt="${this.place.name}" />
+              ${imgHTML}
               <p>${this.place.name} - ${this.place.location.address}</p>
             </a>
           </div>
@@ -53,9 +51,30 @@ function loadPlaces(map, lat = 43.2, lng = -79.8) {
 
 function makeMap(mapDiv) {
   if (!mapDiv) return;
-  // make our map
-  const map = new google.maps.Map(mapDiv, mapOptions);
-  loadPlaces(map);
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition, noGeo);
+  }
+
+  function noGeo() {
+      setTimeout(showPosition(false), 1000);
+  }
+  function showPosition(position) {
+    let lat = 41.203323;
+    let lng = -77.194527;
+    if (position) {
+        lat = position.coords.latitude;
+        lng = position.coords.longitude;
+    }
+    // make our map
+    const map = new google.maps.Map(mapDiv, {
+        center: {
+            lat: lat,
+            lng: lng
+        },
+        zoom: 10
+    });
+    loadPlaces(map, lat, lng);
+  }
 
   const input = $('[name="geolocate"]');
   const autocomplete = new google.maps.places.Autocomplete(input);
