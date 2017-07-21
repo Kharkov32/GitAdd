@@ -595,10 +595,7 @@ p {
     border-bottom: 0; }
 
 .title--single {
-  max-width: 600px;
-  margin-top: -9rem;
-  font-size: 10rem;
-  text-align: center; }
+  font-size: 40px; }
 
 input, textarea {
   width: 100%;
@@ -1017,7 +1014,7 @@ label {
     background-clip: padding-box; }
 
 .single__hero {
-  height: 500px;
+  height: 350px;
   position: relative;
   overflow: hidden;
   display: -ms-flexbox;
@@ -1056,24 +1053,30 @@ label {
   box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.15); }
 
 .single__map {
-  width: calc(100% + 6rem);
+  float: right;
+  width: calc(50% + 6rem);
   max-width: none;
-  margin-top: -3rem;
-  margin-left: -3rem; }
+  margin-top: -5rem;
+  margin-left: -3rem;
+  margin-right: -5rem; }
+  @media all and (max-width: 900px) {
+    .single__map {
+      margin-right: 0rem; } }
 
 .single__location {
-  margin: 0;
-  margin-top: -3rem;
-  margin-right: -5rem;
+  float: right;
+  margin: 1rem -45rem 0 0;
   background: #303030;
   color: white;
   display: inline-block;
   float: right;
-  position: relative;
   padding: 1rem; }
-  @media all and (max-width: 850px) {
+  @media all and (max-width: 900px) {
     .single__location {
-      margin-right: 0; } }
+      margin-right: -30rem; } }
+  @media all and (max-width: 540px) {
+    .single__location {
+      margin-right: -20rem; } }
 
 .heart__button {
   background: none;
