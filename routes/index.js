@@ -127,7 +127,16 @@ router.post('/admin/store/:slug/product/:product',
 router.get('/api/search', catchErrors(storeController.searchStores));
 router.get('/api/stores/near', catchErrors(storeController.mapStores));
 router.post('/api/stores/:id/heart', catchErrors(storeController.heartStore));
-// promoted
-// router.post('/api/store/promote/:store/:author', catchErrors(storeController.createPromoted));
+// promote
+router.post('/api/store/promote/:store/:author',
+    authController.isLoggedIn,
+    authController.isAdmin,
+    catchErrors(storeController.createPromoted)
+);
+router.post('/api/store/demote/:store/:author',
+    authController.isLoggedIn,
+    authController.isAdmin,
+    catchErrors(storeController.removePromoted)
+);
 
 module.exports = router;

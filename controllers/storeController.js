@@ -93,6 +93,15 @@ exports.createPromoted = async (req, res) => {
   res.redirect('/');
 };
 
+exports.removePromoted = async (req, res) => {
+  req.body.store = req.params.store;
+  req.body.author = req.params.author;
+
+  const demoted = await (Promoted.findOneAndRemove({ store: req.body.store, author: req.body.author }));
+  req.flash('success', 'Demoted store!');
+  res.redirect('/');
+};
+
 exports.getStores = async (req, res) => {
   const page = req.params.page || 1;
   const limit = 6;

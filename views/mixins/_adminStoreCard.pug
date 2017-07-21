@@ -34,5 +34,10 @@ mixin adminStoreCard(store = {})
       p
         a(href=`/admin/store/${store.slug}/products`)
           input.button(type="submit" value="PRODUCTS")
-      form.form(action=`/admin/store/${store._id}` method="POST")
-        input.button(type="submit" value="DELETE")
+
+      form.form(style="margin-top:0; padding: 1rem;" action=`/api/store/promote/${store._id}/${store.author}` method="POST")
+        input.button(type="submit" value="PROMOTE")
+      form.form(style="margin-top:0; padding: 1rem;" action=`/api/store/demote/${store._id}/${store.author}` method="POST")
+        input.button(type="submit" value="DEMOTE")
+      form.form(style="margin-top:0; padding: 1rem;" action=`/admin/store/${store._id}` method="POST")
+        input.button(style="background-color:#af0000;" type="submit" value="DELETE")
