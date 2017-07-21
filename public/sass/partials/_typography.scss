@@ -12,7 +12,7 @@ body {
   color:$black;
 }
 
-h1, h2, h3, h4, h5, h6, {
+h1, h2, h3, h4, h5, h6 {
   font-size: 5rem;
   font-family: 'Open Sans';
   font-weight: 600;
@@ -39,7 +39,7 @@ p {
   margin:0;
   font-size: 40px;
   z-index: 2;
-  line-height:1.1;
+  line-height:1.36;
   // transform: skew(0, -3deg);
   &--long {
     font-size: 30px;
@@ -56,12 +56,27 @@ p {
     z-index: -1;
     // transform:skew(-5deg)
   }
-  line-height:1.1;
   // inline link inside
   a {
     border-bottom: 0;
     $yellowa: rgba($yellow,0.8);
     background-image: linear-gradient(to right, $yellowa 100%, $yellowa 50%);
+  }
+}
+
+.storeCardTitle {
+  word-wrap: break-word;
+  position: relative;
+  z-index: 2;
+  margin:0;
+  font-size: 24px;
+  z-index: 2;
+  line-height:1.1;
+  &--long {
+    font-size: 30px;
+  }
+  a {
+    border-bottom: 0;
   }
 }
 

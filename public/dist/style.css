@@ -565,8 +565,7 @@ p {
   margin: 0;
   font-size: 40px;
   z-index: 2;
-  line-height: 1.1;
-  line-height: 1.1; }
+  line-height: 1.36; }
   .title--long {
     font-size: 30px; }
   .title:before {
@@ -581,6 +580,19 @@ p {
   .title a {
     border-bottom: 0;
     background-image: linear-gradient(to right, rgba(255, 196, 14, 0.8) 100%, rgba(255, 196, 14, 0.8) 50%); }
+
+.storeCardTitle {
+  word-wrap: break-word;
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  font-size: 24px;
+  z-index: 2;
+  line-height: 1.1; }
+  .storeCardTitle--long {
+    font-size: 30px; }
+  .storeCardTitle a {
+    border-bottom: 0; }
 
 .title--single {
   max-width: 600px;
@@ -699,7 +711,6 @@ label {
   -ms-flex-pack: justify;
       justify-content: space-between;
   background: #FFF;
-  border-bottom: 1px solid #e5e5e5;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), 0 5px 10px rgba(0, 0, 0, 0.05); }
   .nav__section {
     display: -ms-flexbox;
@@ -846,7 +857,6 @@ label {
   z-index: 2;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 1px 0 rgba(255, 255, 255, 0.2);
-  margin-bottom: 50px;
   padding-top: 10px;
   padding-bottom: 20px;
   display: -ms-flexbox;
@@ -868,7 +878,8 @@ label {
 .store__hero {
   position: relative;
   padding: 0 10px 0 10px;
-  text-align: left; }
+  text-align: left;
+  min-height: 150px; }
   .store__hero:before {
     display: block;
     content: '';
@@ -877,7 +888,7 @@ label {
     width: 100%;
     top: 0;
     right: 0;
-    background: linear-gradient(45deg, #05b3d6 0%, rgba(5, 179, 214, 0) 70%), linear-gradient(135deg, #0958ec 10%, rgba(9, 88, 236, 0) 80%), linear-gradient(225deg, rgba(210, 9, 236, 0.7) 10%, rgba(210, 9, 236, 0) 80%), linear-gradient(315deg, #05e129 100%, rgba(5, 225, 41, 0) 70%);
+    background: linear-gradient(45deg, #474747 0%, rgba(5, 179, 214, 0) 70%), linear-gradient(135deg, #454545 10%, rgba(9, 88, 236, 0) 80%), linear-gradient(225deg, rgba(64, 64, 64, 0.7) 10%, rgba(210, 9, 236, 0) 80%), linear-gradient(315deg, #262626 100%, rgba(5, 225, 41, 0) 70%);
     opacity: 0.6;
     z-index: 1; }
   .store__hero img {
@@ -894,7 +905,7 @@ label {
   .promoted .store {
     width: 100%; }
     .promoted .store .store__hero {
-      min-height: 100px; }
+      min-height: 200px; }
 
 .products {
   display: -ms-flexbox;
@@ -1025,7 +1036,7 @@ label {
     width: 100%;
     top: 0;
     right: 0;
-    background: linear-gradient(45deg, #05b3d6 0%, rgba(5, 179, 214, 0) 70%), linear-gradient(135deg, #0958ec 10%, rgba(9, 88, 236, 0) 80%), linear-gradient(225deg, #d209ec 10%, rgba(210, 9, 236, 0) 80%), linear-gradient(315deg, #05e129 100%, rgba(5, 225, 41, 0) 70%);
+    background: linear-gradient(45deg, #474747 0%, rgba(5, 179, 214, 0) 70%), linear-gradient(135deg, #454545 10%, rgba(9, 88, 236, 0) 80%), linear-gradient(225deg, rgba(64, 64, 64, 0.7) 10%, rgba(210, 9, 236, 0) 80%), linear-gradient(315deg, #262626 100%, rgba(5, 225, 41, 0) 70%);
     opacity: 0.6;
     z-index: 1;
     -webkit-clip-path: polygon(0 0, 100% 0, 100% calc(100% - 2vw), 0% 100%);

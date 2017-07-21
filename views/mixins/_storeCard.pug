@@ -23,7 +23,7 @@ mixin storeCard(store = {})
       else
         img(src=h.staticMap(store.location.coordinates))
 
-      h2.title
-        a(href=`/store/${store.slug}`) #{store.name}
     .store__details
+      h2.storeCardTitle
+        a(href=`/store/${store.slug}`) #{store.name}
       p= store.description.split(' ').slice(0, 25).join(' ')
