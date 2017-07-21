@@ -18,7 +18,11 @@ mixin storeCard(store = {})
             != h.icon('review')
             span= store.reviews.length
 
-      img(src=`https://s3.amazonaws.com/cbdoilmaps-public-images/stores/${store.photo || 'store.png'}`)
+      if store.photo !== undefined
+        img(src=`https://s3.amazonaws.com/cbdoilmaps-public-images/stores/${store.photo}`)
+      else
+        img(src=h.staticMap(store.location.coordinates))
+
       h2.title
         a(href=`/store/${store.slug}`) #{store.name}
     .store__details

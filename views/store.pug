@@ -7,12 +7,16 @@ include mixins/_review
 block content
   .single
     .single__hero
-      img.single__image(src=`https://s3.amazonaws.com/cbdoilmaps-public-images/stores/${store.photo || 'store.png'}`)
+      if store.photo !== undefined
+        img.single__image(src=`https://s3.amazonaws.com/cbdoilmaps-public-images/stores/${store.photo}`)
+      else
+        img.single__image(src=h.staticMap(store.location.coordinates))
       h2.title.title--single
         a(href=`/store/${store.slug}`) #{store.name}
 
   .single__details.inner
-    img.single__map(src=h.staticMap(store.location.coordinates))
+    if store.photo !== undefined
+      img.single__map(src=h.staticMap(store.location.coordinates))
     p.single__location= store.location.address
     p= store.description
 
