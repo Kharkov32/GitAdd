@@ -26,4 +26,5 @@ mixin storeCard(store = {})
     .store__details
       h2.storeCardTitle
         a(href=`/store/${store.slug}`) #{store.name}
-      p= store.description.split(' ').slice(0, 25).join(' ')
+      p= store.location.address
+      p= store.website

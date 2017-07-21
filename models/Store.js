@@ -32,6 +32,7 @@ const storeSchema = new mongoose.Schema({
     }
   },
   photo: String,
+  website: String,
   author: {
     type: mongoose.Schema.ObjectId,
     ref: 'User',
