@@ -1195,14 +1195,14 @@ function typeAhead(search) {
       next = current.previousElementSibling || items[items.length - 1];
     } else if (e.keyCode === 38) {
       next = items[items.length - 1];
-    } else if (e.keyCode === 13 && current.href) {
+    } else if (e.keyCode === 13 && current && current.href) {
       window.location = current.href;
       return;
     }
     if (current) {
       current.classList.remove(activeClass);
     }
-    next.classList.add(activeClass);
+    if (next) next.classList.add(activeClass);
   });
 }
 
