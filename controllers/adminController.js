@@ -4,6 +4,10 @@ const Store = mongoose.model('Store');
 const Product = mongoose.model('Product');
 const Review = mongoose.model('Review');
 
+const AWS = require('aws-sdk');
+AWS.config.loadFromPath('./aws.config.json');
+const s3 = new AWS.S3({region: 'us-east-1'});
+
 exports.searchPage = async (req, res) => {
   const page = req.params.page || 1;
   const limit = 6;
@@ -28,14 +32,43 @@ exports.searchPage = async (req, res) => {
 };
 
 exports.deleteStoreById = async (req, res) => {
-  const store = await Store.findOneAndRemove({ _id: req.params.store });
-  // TODO:: Delete all related reviews, products and images
-  req.flash('success', 'Deleted Store!');
-  res.redirect('back');
+  const store = await Store.findOne({ _id: req.params.store });
+  const params = {
+      Bucket: 'cbdoilmaps-public-images',
+      Key: 'stores/' + store.photo
+  };
+  const deleteObjectPromise = s3.deleteObject(params).promise();
+  deleteObjectPromise
+      .then(function(data) {
+          store.reviews.forEach(async (review) => {
+              await Review.findOneAndRemove({ _id: review._id });
+          });
+          store.products.forEach(async (product) => {
+              await Product.findOneAndRemove({ _id: product._id });
+              const params = {
+                  Bucket: 'cbdoilmaps-public-images',
+                  Key: 'products/' + product.photo
+              };
+              const deleteObjectPromise = s3.deleteObject(params).promise();
+              deleteObjectPromise
+                  .catch(function(err) {
+                      console.log(err);
+                      console.log(product.photo);
+                  });
+          });
+          store.remove();
+          req.flash('success', 'Deleted Store!');
+          res.redirect('back');
+      })
+      .catch(function(err) {
+          console.log(err);
+          console.log(store.photo);
+          res.redirect('back');
+      });
 };
 
 exports.reviewsBySlug = async (req, res) => {
-  const slug = req.params.slug
+  const slug = req.params.slug;
   const store = await Store.findOne({ slug });
   res.render('adminReviews', { 'title': `Reviews for ${store.name}`, store });
 };
@@ -46,4 +79,28 @@ exports.deleteReviewById = async (req, res) => {
   res.redirect('back');
 };
 
-// TODO:: List + Delete products
+exports.productsBySlug = async (req, res) => {
+    const slug = req.params.slug;
+    const store = await Store.findOne({ slug });
+    res.render('adminProducts', { 'title': `Products for ${store.name}`, store });
+};
+
+exports.deleteProductById = async (req, res) => {
+    const product = await Product.findOneAndRemove({ _id: req.params.product });
+
+    const params = {
+        Bucket: 'cbdoilmaps-public-images',
+        Key: 'products/' + product.photo
+    };
+    const deleteObjectPromise = s3.deleteObject(params).promise();
+    deleteObjectPromise
+        .then(function(data) {
+            req.flash('success', 'Deleted Product!');
+            res.redirect('back');
+        })
+        .catch(function(err) {
+            console.log(err);
+            console.log(product.photo);
+            res.redirect('back');
+        });
+};

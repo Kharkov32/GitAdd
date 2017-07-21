@@ -94,20 +94,30 @@ router.get('/admin/stores/page/:page',
   authController.isAdmin,
   catchErrors(adminController.searchPage)
 );
-router.get('/admin/store/:slug',
-  authController.isLoggedIn,
-  authController.isAdmin,
-  catchErrors(adminController.reviewsBySlug)
-);
 router.post('/admin/store/:store',
   authController.isLoggedIn,
   authController.isAdmin,
   catchErrors(adminController.deleteStoreById)
 );
+router.get('/admin/store/:slug',
+    authController.isLoggedIn,
+    authController.isAdmin,
+    catchErrors(adminController.reviewsBySlug)
+);
 router.post('/admin/store/:slug/:review',
   authController.isLoggedIn,
   authController.isAdmin,
   catchErrors(adminController.deleteReviewById)
+);
+router.get('/admin/store/:slug/products',
+    authController.isLoggedIn,
+    authController.isAdmin,
+    catchErrors(adminController.productsBySlug)
+);
+router.post('/admin/store/:slug/product/:product',
+    authController.isLoggedIn,
+    authController.isAdmin,
+    catchErrors(adminController.deleteProductById)
 );
 
 /*

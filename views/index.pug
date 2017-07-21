@@ -10,5 +10,6 @@ block content
       each store in stores
         +storeCard(store)
         if store === stores[2]
-          .promoted
-            +promotedStoreCard(promoted.store)
+          if promoted && promoted.store
+            .promoted
+              +promotedStoreCard(promoted.store)

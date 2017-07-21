@@ -1,0 +1,9 @@
+mixin admiStoreProduct(product = {})
+  .product
+    .product__hero
+      img(src=`https://s3.amazonaws.com/cbdoilmaps-public-images/products/${product.photo || 'product.png'}`)
+    .product__details
+      h2.storeCardTitle= product.name
+      p= product.description.split(' ').slice(0, 25).join(' ')
+      form.form(action=`/admin/store/${store.slug}/product/${product._id}` method="POST")
+        input.button(type="submit" value="DELETE PRODUCT")
