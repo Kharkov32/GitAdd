@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const storeController = require('../controllers/storeController');
+const genericController = require('../controllers/genericController');
 const productController = require('../controllers/productController');
 const userController = require('../controllers/userController');
 const authController = require('../controllers/authController');
@@ -14,6 +15,9 @@ router.get('/stores', catchErrors(storeController.getStores));
 router.get('/stores/page/:page', catchErrors(storeController.getStores));
 router.get('/state/:state', catchErrors(storeController.getStoresByState));
 router.get('/map', storeController.mapPage);
+router.get('/about', genericController.aboutPage);
+router.get('/privacy', genericController.privacyPage);
+router.get('/terms', genericController.termsPage);
 
 // Store
 router.get('/add', 
