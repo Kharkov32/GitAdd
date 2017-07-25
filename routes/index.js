@@ -12,6 +12,7 @@ const { catchErrors } = require('../handlers/errorHandlers');
 router.get('/', catchErrors(storeController.homePage));
 router.get('/stores', catchErrors(storeController.getStores));
 router.get('/stores/page/:page', catchErrors(storeController.getStores));
+router.get('/state/:state', catchErrors(storeController.getStoresByState));
 router.get('/map', storeController.mapPage);
 
 // Store
@@ -125,6 +126,7 @@ router.post('/admin/store/:slug/product/:product',
 */
 
 router.get('/api/search', catchErrors(storeController.searchStores));
+router.get('/api/state/search', catchErrors(storeController.searchStates));
 router.get('/api/stores/near', catchErrors(storeController.mapStores));
 router.post('/api/stores/:id/heart', catchErrors(storeController.heartStore));
 // promote

@@ -1,11 +1,11 @@
 import axios from 'axios';
 import dompurify from 'dompurify';
 
-function searchResultsHTML(stores) {
-  return stores.map(store => {
+function searchResultsHTML(states) {
+  return states.map(state => {
     return `
-      <a href="/store/${store.slug}" class="search__result">
-        <strong>${store.name}</strong>
+      <a href="/state/${state.name}" class="search__result">
+        <strong>${state.name}</strong>
       </a>
     `;
   }).join('');
@@ -28,7 +28,7 @@ function typeAhead(search) {
     searchResults.style.display = 'block';
 
     axios
-      .get(`/api/search?q=${this.value}`)
+      .get(`/api/state/search?q=${this.value}`)
       .then(res => {
         if (res.data.length) {
           searchResults.innerHTML = dompurify.sanitize(searchResultsHTML(res.data));

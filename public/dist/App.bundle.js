@@ -1141,9 +1141,9 @@ var _dompurify2 = _interopRequireDefault(_dompurify);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function searchResultsHTML(stores) {
-  return stores.map(function (store) {
-    return '\n      <a href="/store/' + store.slug + '" class="search__result">\n        <strong>' + store.name + '</strong>\n      </a>\n    ';
+function searchResultsHTML(states) {
+  return states.map(function (state) {
+    return '\n      <a href="/state/' + state.name + '" class="search__result">\n        <strong>' + state.name + '</strong>\n      </a>\n    ';
   }).join('');
 }
 
@@ -1165,7 +1165,7 @@ function typeAhead(search) {
     // show the search results!
     searchResults.style.display = 'block';
 
-    _axios2.default.get('/api/search?q=' + this.value).then(function (res) {
+    _axios2.default.get('/api/state/search?q=' + this.value).then(function (res) {
       if (res.data.length) {
         searchResults.innerHTML = _dompurify2.default.sanitize(searchResultsHTML(res.data));
         return;

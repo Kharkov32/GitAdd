@@ -5,7 +5,7 @@ mixin storeForm(store = {})
     label(for="description") Description
     textarea(name="description")= store.description
     label(for="website") Website
-    input(type="text" name="website" value=store.website)
+    input(type="State" name="website" value=store.website)
     //- Image Upload
     label(for="photo") Photo
       input(type="file" name="photo" id="photo" accept="image/gif, image/png, image/jpeg")
@@ -14,6 +14,13 @@ mixin storeForm(store = {})
     //- address, lng and lat
     label(for="address") Address
     input(type="text" id="address" name="location[address]" value=(store.location && store.location.address))
+    label(for="state") State
+    select(name="state")
+      each state in states
+        if store.state === state.name
+          option(value=state.name selected)= state.name
+        else
+          option(value=state.name)= state.name
     label(for="lng") Address Lng
     input(type="text" id="lng" name="location[coordinates][0]" value=(store.location && store.location.coordinates[0]) required)
     label(for="lat") Address Lat

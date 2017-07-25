@@ -6,10 +6,13 @@ include mixins/_promotedStoreCard
 block content
   .inner
     h2= title
-    .stores
-      each store in stores
-        +storeCard(store)
-        if store === stores[2]
-          if promoted && promoted.store
-            .promoted
-              +promotedStoreCard(promoted.store)
+    if stores.length > 0
+      .stores
+        each store in stores
+          +storeCard(store)
+          if store === stores[2]
+            if promoted && promoted.store
+              .promoted
+                +promotedStoreCard(promoted.store)
+    else
+      p No stores found

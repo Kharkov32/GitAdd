@@ -1,6 +1,7 @@
 const fs = require('fs');
 const mongoose = require('mongoose');
 const Store = mongoose.model('Store');
+const State = mongoose.model('State');
 const Promoted = mongoose.model('Promoted');
 const User = mongoose.model('User');
 const multer = require('multer');
@@ -33,8 +34,9 @@ exports.homePage = async (req, res) => {
   res.render('index', { title: 'Newest Stores', promoted, stores });
 };
 
-exports.addStore = (req, res) => {
-  res.render('editStore', { title: 'Add Store' });
+exports.addStore = async (req, res) => {
+  const states = await State.find();
+  res.render('editStore', { title: 'Add Store', states });
 };
 
 exports.upload = multer(multerOptions).single('photo');
@@ -107,7 +109,6 @@ exports.getStores = async (req, res) => {
   const limit = 6;
   const skip = (page * limit) - limit;
 
-  // 1. Query the database for a list of all stores
   const storesPromise = Store
     .find()
     .skip(skip)
@@ -135,25 +136,20 @@ const confirmOwner = (store, user) => {
 
 
 exports.editStore = async (req, res) => {
-  // 1. Find the store given the ID
   const store = await Store.findOne({ _id: req.params.id });
-  // 2. confirm they are the owner of the store
+  const states = await State.find();
   confirmOwner(store, req.user);
-  // 3. Render out the edit form so the user can update their store
-  res.render('editStore', { title: `Edit ${store.name}`, store });
+  res.render('editStore', { title: `Edit ${store.name}`, store, states });
 };
 
 exports.updateStore = async (req, res) => {
-  // set the location data to be a point
   req.body.location.type = 'Point';
-  // find and update the store
   const store = await Store.findOneAndUpdate({ _id: req.params.id }, req.body, {
-    new: true, // return the new store instead of the old one
+    new: true, // returns the new store instead of the old one
     runValidators: true
   }).exec();
-  req.flash('success', `Successfully updated <strong>${store.name}</strong>. <a href="/stores/${store.slug}">View Store →</a>`);
+  req.flash('success', `Successfully updated <strong>${store.name}</strong>. <a href="/store/${store.slug}">View Store →</a>`);
   res.redirect(`/stores/${store._id}/edit`);
-  // Redriect them the store and tell them it worked
 };
 
 exports.getStoreBySlug = async (req, res, next) => {
@@ -164,7 +160,6 @@ exports.getStoreBySlug = async (req, res, next) => {
 
 exports.searchStores = async (req, res) => {
   const stores = await Store
-  // first find stores that match
   .find({
     $text: {
       $search: req.query.q
@@ -172,13 +167,37 @@ exports.searchStores = async (req, res) => {
   }, {
     score: { $meta: 'textScore' }
   })
-  // the sort them
   .sort({
     score: { $meta: 'textScore' }
   })
-  // limit to only 5 results
   .limit(5);
   res.json(stores);
+};
+
+exports.searchStates = async (req, res) => {
+    const states = await State
+        .find({
+            $text: {
+                $search: req.query.q
+            }
+        }, {
+            score: { $meta: 'textScore' }
+        })
+        .sort({
+            score: { $meta: 'textScore' }
+        })
+        .limit(5);
+    res.json(states);
+};
+
+exports.getStoresByState = async (req, res) => {
+    const promoted = await Promoted.findOne({position: 1});
+
+    const stores = await Store
+        .find({state: req.params.state})
+        .sort({ created: 'desc' });
+
+    res.render('index', { title: `Stores in ${req.params.state}`, promoted, stores });
 };
 
 exports.mapStores = async (req, res) => {
