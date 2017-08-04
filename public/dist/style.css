@@ -1,4 +1,4 @@
-@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Roboto:300,400,700);@charset "UTF-8";
 html {
   font-size: 10px; }
 
@@ -78,6 +78,8 @@ body {
         text-decoration: none; }
     .footer__link--nolink:hover {
       text-decoration: none; }
+  .footer__form {
+    margin-top: 0 !important; }
   .footer__search--search__input {
     width: 90%;
     font-size: 1.5rem;
@@ -532,11 +534,12 @@ template {
   display: none; }
 
 @font-face {
-  font-family: 'Roboto', Arial, sans-serif;
+  font-family: 'Roboto', sans-serif;
   src: url("https://fonts.googleapis.com/css?family=Roboto:300,400,700"); }
 
 html {
-  font-size: 10px; }
+  font-size: 10px;
+  font-family: 'Roboto', sans-serif; }
 
 body {
   font-size: 1.5rem;
@@ -544,7 +547,7 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-size: 5rem;
-  font-family: 'Roboto';
+  font-family: 'Roboto', sans-serif;
   font-weight: 700; }
 
 a {
@@ -564,7 +567,6 @@ p {
   z-index: 2;
   margin: 0;
   font-size: 40px;
-  z-index: 2;
   line-height: 1.36; }
   .title--long {
     font-size: 30px; }
@@ -609,6 +611,7 @@ label {
 
 .form {
   background: white;
+  margin-top: 1em;
   padding: 2rem;
   box-shadow: linear-gradient(90deg, #48ded4 0%, #a026bf 20%, #e82c75 60%, #FFC40E 85%, #48ded4 95%); }
   .form + .form {
