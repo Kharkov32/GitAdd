@@ -532,7 +532,7 @@ template {
   display: none; }
 
 @font-face {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto', Arial, sans-serif;
   src: url("https://fonts.googleapis.com/css?family=Roboto:300,400,700"); }
 
 html {
@@ -586,8 +586,7 @@ p {
   position: relative;
   z-index: 2;
   margin: 0;
-  font-size: 24px;
-  z-index: 2;
+  font-size: 20px;
   line-height: 1.1; }
   .storeCardTitle--long {
     font-size: 30px; }
