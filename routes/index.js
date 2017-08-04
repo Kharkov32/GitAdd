@@ -144,5 +144,9 @@ router.post('/api/store/demote/:store/:author',
     authController.isAdmin,
     catchErrors(storeController.removePromoted)
 );
+router.post('/api/email/submit',
+    catchErrors(userController.validateEmailSubmit),
+    catchErrors(userController.emailSubmit)
+);
 
 module.exports = router;

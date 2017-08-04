@@ -18,6 +18,7 @@ require('./models/State');
 require('./models/Promoted');
 require('./models/Product');
 require('./models/User');
+require('./models/Email');
 require('./models/Review');
 
 // Start our app!

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
+const Email = mongoose.model('Email');
 const promisify = require('es6-promisify');
 
 exports.loginForm = (req, res) => {
@@ -73,5 +74,36 @@ exports.updateAccount = async (req, res) => {
     { new: true, runValidators: true, context: 'query' }
   );
   req.flash('success', 'Updated the profile!');
+  res.redirect('back');
+};
+
+
+exports.validateEmailSubmit = async (req, res, next) => {
+  req.checkBody('email', 'That Email is not valid!').isEmail();
+  req.sanitizeBody('email').normalizeEmail({
+      remove_dots: false,
+      remove_extension: false,
+      gmail_remove_subaddress: false
+  });
+  const errors = req.validationErrors();
+  if (errors) {
+      req.flash('error', errors.map(err => err.msg));
+      res.redirect('back');
+      return;
+  }
+  const exists = await Email.findOne({ email: req.body.email });
+  if (!exists) {
+      next();
+  } else {
+      req.flash('error', 'Email already subscribed!');
+      res.redirect('back');
+      return;
+  }
+};
+
+exports.emailSubmit = async (req, res) => {
+  const newEmail = new Email(req.body);
+  await newEmail.save();
+  req.flash('success', 'Subscribed: ' + req.body.email);
   res.redirect('back');
 };

@@ -91,7 +91,9 @@ html
           h3.footer__link.footer__link--title Newsletter
           span.footer__link.footer__link--nolink Sign up to our newsletter to get special offers &amp; updates!
           .footer__search
-            input.footer__search--search__input(type="text" disabled placeholder="Your@email.com" name="search")
+            form.form(action="/api/email/submit" method="POST")
+              input.footer__search--search__input(type="email" placeholder="Your@email.com" name="email")
+              input.button(style="width:90%; margin-top:5px;" type="submit" name="submit" value="Subscribe")
 
     block scripts
       script(src=`https://maps.googleapis.com/maps/api/js?key=${process.env.MAP_KEY}&libraries=places`)
