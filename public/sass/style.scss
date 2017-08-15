@@ -19,3 +19,11 @@
 @import 'partials/pagination';
 @import 'partials/map';
 @import 'partials/helpers';
+@import 'custom';
+@import 'tabs';
+// @import 'footer';
+@import 'responsive';
+
+footer.footer{
+  display: block;
+}

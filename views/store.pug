@@ -8,26 +8,65 @@ block content
   .single
     .single__hero
       img.single__image(src=`https://s3.amazonaws.com/cbdoilmaps-public-images/stores/${store.photo || 'placeholder.jpeg'}`)
+      a.button.hero__button(href=`/stores`) All Stores
 
   .single__details.inner
-    //if store.photo !== undefined
-    img.single__map(src=h.staticMap(store.location.coordinates))
-    h2.storeCardTitle.title--single
-      a(href=`/store/${store.slug}`) #{store.name}
-    p= store.website
-    p= store.location.address
-    p= store.description
+    .brand__avatar
+      img(src=`https://s3.amazonaws.com/cbdoilmaps-public-images/stores/${store.photo || 'placeholder.jpeg'}` style="width: 200px;height:200px;background-color:white;")
+      .preview
+        h2.storeCardTitle.title--single
+          a(href=`/store/${store.slug}`) #{store.name}
+        p
+          if store.reviews && store.reviews.length > 0
+            span.review__stars(title=`Rated 4 our of 5 stars`)
+              = `★`.repeat(4)
+              = `☆`.repeat(5 - 4)
+            span 4.0 by 1 user
+          else
+            span No reviews yet
+        .details
+          p.url= store.website
+          p.address= store.location.address
 
-    if store.products
-      .products
-        each p in store.products
-          +storeProduct(p)
+    .brand__map
+      .brand__map--top
+        //- h4.h4 
+          span 0 
+          | Lorem ipsum dolor sit.
+        .map-wrapper
+        img(src=h.staticMap(store.location.coordinates))
+      .brand__map--bottom
+        .listing-list 
+          //- p Lorem ipsum dolor sit amet, consectetur adipisicing.
+        //- a.button(href=`https://s3.amazonaws.com/cbdoilmaps-public-images/stores/${store.photo || 'placeholder.jpeg'}`).button show map
 
-    if user
-      +reviewForm(store)
 
-    if store.reviews
-      .reviews
-        each review in store.reviews.reverse()
-          .review
-            +review(review)
+    p.clearfix
+    
+    .tabs 
+      .tab
+        a.button.tablinks.active(data-open="description") description 
+        a.button.tablinks(data-open="products") products
+        a.button.tablinks(data-open="reviews") reviews
+
+      .description.tabcontent.open
+        h2.storeCardTitle.title--single
+          a(href=`/store/${store.slug}`) #{store.name}
+        p= store.description
+      .products.tabcontent
+        if store.products
+          .products
+            each p in store.products
+              +storeProduct(p)
+
+          //- p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos ipsa ea aspernatur ducimus sint dolorem distinctio dolor est quam exercitationem minima cum, minus atque maxime deleniti possimus, aperiam pariatur repellendus.
+      .reviews.tabcontent
+        if user
+          +reviewForm(store)
+        if store.reviews && store.reviews.length > 0
+          .reviews
+            each review in store.reviews.reverse()
+              .review
+                +review(review)
+        else
+          span No reviews yet

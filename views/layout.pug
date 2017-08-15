@@ -4,6 +4,7 @@ html
     title= `${title} | ${h.siteName}`
     link(rel='stylesheet', href='/dist/style.css')
     link(rel="shortcut icon" type="image/png" href="/images/icons/logo-droplet.png")
+    //- link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
     meta(name="viewport" content="width=device-width, initial-scale=1")
   body
     block header
@@ -55,46 +56,48 @@ html
       block content
         p CBD Oil Maps
 
-    footer.footer
-      .footer__section.footer__section--pages
-        li.footer__item
-          a.footer__link.footer__link--logo(href="/")
-            != h.icon('logo-black')
-          a.footer__link(href='mailto:Contact@CBDOilMaps.com')
-            span Contact@CBDOilMaps.com
-          a.footer__link(href='tel:4134223645')
-            span 413-4-CBDOIL (223645)
+    footer
+      .footer
+        block footer 
+          .footer__section.footer__section--pages
+            li.footer__item
+              a.footer__link.footer__link--logo(href="/")
+                != h.icon('logo-black')
+              a.footer__link(href='mailto:Contact@CBDOilMaps.com')
+                span Contact@CBDOilMaps.com
+              a.footer__link(href='tel:4134223645')
+                span 413-4-CBDOIL (223645)
 
-        li.footer__item
-          h3.footer__link.footer__link--title Company
-          a.footer__link(href='/about')
-            span About Us
-          a.footer__link(href='/privacy')
-            span Privacy Policy
-          a.footer__link(href='/terms')
-            span Terms &amp; Conditions
-          a.footer__link(href='#')
-            span Contact Us
+            li.footer__item
+              h3.footer__link.footer__link--title Company
+              a.footer__link(href='/about')
+                span About Us
+              a.footer__link(href='/privacy')
+                span Privacy Policy
+              a.footer__link(href='/terms')
+                span Terms &amp; Conditions
+              a.footer__link(href='#')
+                span Contact Us
 
-        li.footer__item
-          h3.footer__link.footer__link--title Other Links
-          a.footer__link(href='#')
-            span What is CBD Oil?
-          a.footer__link(href='#')
-            span List Your Service
-          a.footer__link(href='#')
-            span Help &amp; Support
-          a.footer__link(href='#')
-            span Sitemap
+            li.footer__item
+              h3.footer__link.footer__link--title Other Links
+              a.footer__link(href='#')
+                span What is CBD Oil?
+              a.footer__link(href='#')
+                span List Your Service
+              a.footer__link(href='#')
+                span Help &amp; Support
+              a.footer__link(href='#')
+                span Sitemap
 
-        li.footer__item
-          h3.footer__link.footer__link--title Newsletter
-          span.footer__link.footer__link--nolink Sign up to our newsletter to get special offers &amp; updates!
-          .footer__search
-            form.form.footer__form(action="/api/email/submit" method="POST")
-              input.footer__search--search__input(type="email" placeholder="Your@email.com" name="email")
-              input.button(style="width:90%; margin-top:5px;" type="submit" name="submit" value="Subscribe")
+            li.footer__item
+              h3.footer__link.footer__link--title Newsletter
+              span.footer__link.footer__link--nolink Sign up to our newsletter to get special offers &amp; updates!
+              .footer__search
+                form.form.footer__form(action="/api/email/submit" method="POST")
+                  input.footer__search--search__input(type="email" placeholder="Your@email.com" name="email")
+                  input.button(style="width:90%; margin-top:5px;" type="submit" name="submit" value="Subscribe")
 
-    block scripts
-      script(src=`https://maps.googleapis.com/maps/api/js?key=${process.env.MAP_KEY}&libraries=places`)
-      script(src="/dist/App.bundle.js")
+      block scripts
+        script(src=`https://maps.googleapis.com/maps/api/js?key=${process.env.MAP_KEY}&libraries=places`)
+        script(src="/dist/App.bundle.js")
