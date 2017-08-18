@@ -71,7 +71,6 @@ body {
       font-size: 2rem;
       font-family: 'Roboto', sans-serif;
       font-weight: 700;
-      letter-spacing: -1px;
       -webkit-margin-before: 0;
       -webkit-margin-after: 0; }
       .footer__link--title:hover {
@@ -836,6 +835,7 @@ label {
   background: white;
   margin: 10px 0;
   width: 30%;
+  min-width: 200px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), 0 5px 10px rgba(0, 0, 0, 0.05); }
   .store--wide {
     width: 100%; }
@@ -876,20 +876,9 @@ label {
 
 .store__hero {
   position: relative;
-  padding: 0 10px 0 10px;
   text-align: left;
-  min-height: 150px; }
-  .store__hero:before {
-    display: block;
-    content: '';
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    right: 0;
-    background: linear-gradient(45deg, #474747 0%, rgba(5, 179, 214, 0) 70%), linear-gradient(135deg, #454545 10%, rgba(9, 88, 236, 0) 80%), linear-gradient(225deg, rgba(64, 64, 64, 0.7) 10%, rgba(210, 9, 236, 0) 80%), linear-gradient(315deg, #262626 100%, rgba(5, 225, 41, 0) 70%);
-    opacity: 0.6;
-    z-index: 1; }
+  height: 200px;
+  overflow: hidden; }
   .store__hero img {
     height: 100%;
     width: 100%;
@@ -1410,7 +1399,7 @@ p.clearfix {
   .product:first-child {
     margin-left: 0px; }
 
-.products {
+.products, .stores {
   -ms-flex-pack: start;
       justify-content: flex-start; }
 
@@ -1442,6 +1431,54 @@ p.clearfix {
 @media (max-width: 651px) {
   .nav__link.nav__link--logo {
     width: 121px; } }
+
+.store {
+  width: calc(20% - 8px); }
+
+.store {
+  margin-right: 10px; }
+  .store:nth-child(5n) {
+    margin-right: 0; }
+
+.store__hero img {
+  height: auto;
+  width: auto;
+  top: 0;
+  right: 0;
+  position: static;
+  left: 0;
+  object-fit: cover; }
+
+.store__actions {
+  padding: 0;
+  color: grey;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: center;
+      justify-content: center;
+  -ms-flex-align: center;
+      align-items: center; }
+
+.store {
+  overflow: hidden;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23); }
+
+.store__details {
+  padding: 0.5rem;
+  text-align: center;
+  border-top: 1px solid #eee; }
+  .store__details p {
+    margin: 1rem 0; }
+
+.store__button {
+  display: inline-block;
+  padding: 0.5rem; }
+
+.store__hero img {
+  position: static; }
+
+svg g {
+  fill: black; }
 
 div.tab {
   overflow: hidden;

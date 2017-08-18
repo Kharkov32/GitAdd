@@ -139,7 +139,7 @@ p.clearfix {
     margin-left: 0px;
   }
 }
-.products {
+.products , .stores {
   justify-content: flex-start;
 }
 
@@ -180,4 +180,66 @@ p.clearfix {
   .nav__link.nav__link--logo {
     width: 121px;
   }
+}
+
+
+// unoptimized changes to stores page 
+.store{
+  width: calc(20% - 8px);
+}
+
+.store{
+  margin-right: 10px; 
+  &:nth-child(5n){
+    margin-right: 0 ;
+  }
+}
+
+// no breaking changes delete stores 80L for optimization
+.store__hero img {
+    height: auto;
+    width: auto;
+    top: 0;
+    right: 0;
+    position: static;
+    left: 0;
+    object-fit: cover;
+}
+
+.store__actions{
+  // position: absolute;
+  // left: calc(50% - 10px);
+  padding: 0;
+  color: grey;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.store{
+  overflow: hidden;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.store__details{
+  padding: 0.5rem;  
+  text-align: center;
+  border-top: 1px solid #eee;
+  p{
+    margin: 1rem 0;
+  }
+}
+
+.store__button{
+  display: inline-block;
+  padding: 0.5rem;
+  // margin: 10px auto;
+}
+
+.store__hero img{
+  position: static;
+}
+
+svg g {
+  fill: black;
 }
