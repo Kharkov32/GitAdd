@@ -1,0 +1,10 @@
+extends email-layout
+
+block content
+  h2 Contact form message
+  p Hello, we have received your contact form message:
+  p #{contact.name}
+  p #{contact.email}
+  p #{contact.message}
+  br
+  p If you didn't request this email, please ignore it.

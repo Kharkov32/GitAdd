@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  .inner
+    h2= title
+    form.form(action="/contact" method="POST")
+      label(for="name") Name
+      input(id="name" name="name")
+      label(for="email") Email Address
+      input(id="email" type="email" name="email")
+      label(for="message") Message
+      textarea(id="message" name="message")
+      input.button(type="submit" value="Contact →")

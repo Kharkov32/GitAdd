@@ -18,6 +18,8 @@ router.get('/map', storeController.mapPage);
 router.get('/about', genericController.aboutPage);
 router.get('/privacy', genericController.privacyPage);
 router.get('/terms', genericController.termsPage);
+router.get('/contact', genericController.contactPage);
+router.post('/contact', catchErrors(genericController.contactPage));
 
 // Store
 router.get('/add', 

@@ -1,3 +1,5 @@
+const mail = require('../handlers/mail');
+
 exports.aboutPage = (req, res) => {
   res.render('generic', {
     title: 'About Us',
@@ -125,4 +127,30 @@ exports.termsPage = (req, res) => {
                   
                   ATTN: MW`
     });
+};
+
+exports.contactPage = async (req, res) => {
+    if (req.body.email) {
+        const contact = {
+            name: req.body.name,
+            email: req.body.email,
+            message: req.body.message
+        };
+        const cbd = {email: 'mikeW@cbdoilmaps.com'};
+        await mail.send({
+            user: contact,
+            filename: 'contact-form',
+            subject: 'Contact form sent',
+            contact
+        });
+        await mail.send({
+            user: cbd,
+            filename: 'contact-form',
+            subject: 'Contact form sent',
+            contact
+        });
+        req.flash('success', 'Contact form sent from: ' + contact.email);
+        return res.redirect('back');
+    }
+    res.render('contact', { title: 'Contact' });
 };
