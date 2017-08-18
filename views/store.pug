@@ -25,7 +25,8 @@ block content
           else
             span No reviews yet
         .details
-          p.url= store.website
+          p.url
+            a(href=`${store.website}`, style="border-bottom:none; text-decoration:underline;")= store.website
           p.address= store.location.address
 
     .brand__map
@@ -51,7 +52,7 @@ block content
 
       .description.tabcontent.open
         h2.storeCardTitle.title--single
-          a(href=`/store/${store.slug}`) #{store.name}
+          a=store.name
         p= store.description
       .products.tabcontent
         if store.products
