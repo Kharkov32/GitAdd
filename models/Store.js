@@ -38,6 +38,10 @@ const storeSchema = new mongoose.Schema({
     type: mongoose.Schema.ObjectId,
     ref: 'User',
     required: 'You must supply an author'
+  },
+  wholesaler: {
+    type: Boolean,
+    default: false
   }
 }, {
   toJSON: { virtuals: true },

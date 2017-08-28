@@ -5,6 +5,7 @@ const State = mongoose.model('State');
 const Promoted = mongoose.model('Promoted');
 const User = mongoose.model('User');
 const multer = require('multer');
+const request = require('request');
 const jimp = require('jimp');
 const uuid = require('uuid');
 const AWS = require('aws-sdk');
@@ -31,7 +32,7 @@ exports.homePage = async (req, res) => {
     .limit(6)
     .sort({ created: 'desc' });
   
-  res.render('index', { title: 'Newest Stores', promoted, stores });
+  res.render('index', { title: 'Featured Stores', promoted, stores });
 };
 
 exports.addStore = async (req, res) => {
@@ -77,6 +78,11 @@ exports.resize = async (req, res, next) => {
 
 exports.createStore = async (req, res) => {
   req.body.author = req.user._id;
+  if (req.body.wholesaler === 'value') {
+    req.body.wholesaler = true;
+  } else {
+    req.body.wholesaler = false;
+  }
   const store = await (new Store(req.body)).save();
   req.flash('success', `Successfully Created ${store.name}.`);
   res.redirect(`/store/${store.slug}`);
@@ -105,12 +111,38 @@ exports.removePromoted = async (req, res) => {
 };
 
 exports.getStores = async (req, res) => {
+  let getData = (ip) => {
+      return new Promise(function (resolve, reject) {
+          request("http://ip-api.com/json/" + ip, function (error, res, body) {
+              if (!error && res.statusCode == 200) {
+                  resolve(body);
+              } else {
+                  reject(error);
+              }
+          });
+      });
+  };
+  let getIP = async () => {
+      if (process.env.NODE_ENV === 'production') {
+          return req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+      } else {
+          // Cali:
+          return '65.49.22.66';
+          // Ohio:
+          // return '208.80.152.201';
+      }
+  };
+
+  let ip = await getIP();
+  let data = await getData(ip);
+  data = JSON.parse(data);
+
   const page = req.params.page || 1;
   const limit = 6;
   const skip = (page * limit) - limit;
 
   const storesPromise = Store
-    .find()
+    .find({state: data.regionName, wholesaler: false})
     .skip(skip)
     .limit(limit)
     .sort({ created: 'desc' });
@@ -124,8 +156,37 @@ exports.getStores = async (req, res) => {
     res.redirect(`/stores/page/${pages}`);
     return;
   }
+  if (stores.length === 0) {
+      req.flash('info', `No stores found in ${data.regionName}! Try searching a nearby state.`);
+      res.redirect(`/`);
+      return;
+  }
 
-  res.render('stores', { title: 'All Stores', stores, page, pages, count });
+  res.render('stores', { title: `Stores in ${data.regionName}`, stores, page, pages, count });
+};
+
+exports.getWholesale = async (req, res) => {
+    const page = req.params.page || 1;
+    const limit = 6;
+    const skip = (page * limit) - limit;
+
+    const storesPromise = Store
+        .find({wholesaler: true})
+        .skip(skip)
+        .limit(limit)
+        .sort({ created: 'desc' });
+
+    const countPromise = Store.count({wholesaler: true});
+
+    const [stores, count] = await Promise.all([storesPromise, countPromise]);
+    const pages = Math.ceil(count / limit);
+    if (!stores.length && skip) {
+        req.flash('info', `You asked for page ${page}. But that doesn't exist. So I put you on page ${pages}`);
+        res.redirect(`/wholesalers/page/${pages}`);
+        return;
+    }
+
+    res.render('stores', { title: 'Wholesalers', stores, page, pages, count });
 };
 
 const confirmOwner = (store, user) => {
@@ -144,6 +205,11 @@ exports.editStore = async (req, res) => {
 
 exports.updateStore = async (req, res) => {
   req.body.location.type = 'Point';
+  if (req.body.wholesaler === 'value') {
+      req.body.wholesaler = true;
+  } else {
+      req.body.wholesaler = false;
+  }
   const store = await Store.findOneAndUpdate({ _id: req.params.id }, req.body, {
     new: true, // returns the new store instead of the old one
     runValidators: true

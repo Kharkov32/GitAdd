@@ -5,7 +5,11 @@ mixin storeForm(store = {})
     label(for="description") Description
     textarea(name="description")= store.description
     label(for="website") Website
-    input(type="State" name="website" value=store.website)
+    input(type="text" name="website" value=store.website)
+    label(for="wholesaler") Store
+    input(type="radio" name="wholesaler" value=false checked=!store.wholesaler)
+    label(for="wholesaler") Wholesaler
+    input(type="radio" name="wholesaler" value=true checked=store.wholesaler)
     //- Image Upload
     label(for="photo") Photo
       input(type="file" name="photo" id="photo" accept="image/gif, image/png, image/jpeg")

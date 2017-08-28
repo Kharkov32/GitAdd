@@ -1477,9 +1477,6 @@ p.clearfix {
 .store__hero img {
   position: static; }
 
-svg g {
-  fill: black; }
-
 div.tab {
   overflow: hidden;
   width: 75%; }

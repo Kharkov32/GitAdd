@@ -13,6 +13,8 @@ const { catchErrors } = require('../handlers/errorHandlers');
 router.get('/', catchErrors(storeController.homePage));
 router.get('/stores', catchErrors(storeController.getStores));
 router.get('/stores/page/:page', catchErrors(storeController.getStores));
+router.get('/wholesalers', catchErrors(storeController.getWholesale));
+router.get('/wholesalers/page/:page', catchErrors(storeController.getWholesale));
 router.get('/state/:state', catchErrors(storeController.getStoresByState));
 router.get('/map', storeController.mapPage);
 router.get('/about', genericController.aboutPage);
