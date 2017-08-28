@@ -91,7 +91,7 @@ router.post('/account/reset/:token',
   authController.confirmedPasswords,
   catchErrors(authController.update)
 );
-router.get('/hearts', authController.isLoggedIn, catchErrors(storeController.getHearts));
+// router.get('/hearts', authController.isLoggedIn, catchErrors(storeController.getHearts));
 // Admin section
 router.get('/admin/stores',
   authController.isLoggedIn,
