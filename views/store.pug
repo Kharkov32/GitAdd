@@ -9,6 +9,8 @@ block content
     .single__hero
       img.single__image(src=`https://s3.amazonaws.com/cbdoilmaps-public-images/stores/${store.photo || 'placeholder.jpeg'}`)
       a.button.hero__button(href=`/stores`) All Stores
+      if user && store.author.equals(user._id)
+        a.button.hero__button.hero__button__edit(href=`/stores/${store._id}/edit`) Edit Store
 
   .single__details.inner
     .brand__avatar
@@ -35,7 +37,7 @@ block content
           span 0 
           | Lorem ipsum dolor sit.
         .map-wrapper
-        img(src=h.staticMap(store.location.coordinates))
+          img(src=h.staticMap(store.location.coordinates))
       .brand__map--bottom
         .listing-list 
           //- p Lorem ipsum dolor sit amet, consectetur adipisicing.
