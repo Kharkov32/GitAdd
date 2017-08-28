@@ -23,6 +23,6 @@ exports.siteName = `CBD Oil Maps`;
 
 exports.menu = [
   { slug: '/stores', title: 'Stores', icon: 'store', },
-  { slug: '/wholesalers', title: 'Wholesalers', icon: 'store2', },
+  { slug: '/wholesalers', title: 'Wholesalers', icon: 'wholesaler', },
   { slug: '/map', title: 'Map', icon: 'map', }
 ];

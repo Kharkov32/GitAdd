@@ -124,7 +124,7 @@ exports.getStores = async (req, res) => {
   };
   let getIP = async () => {
       if (process.env.NODE_ENV === 'production') {
-          return req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+          return req.headers['x-forwarded-for'];
       } else {
           // Cali:
           return '65.49.22.66';
@@ -194,7 +194,6 @@ const confirmOwner = (store, user) => {
     throw Error('You must own a store in order to edit it!');
   }
 };
-
 
 exports.editStore = async (req, res) => {
   const store = await Store.findOne({ _id: req.params.id });
