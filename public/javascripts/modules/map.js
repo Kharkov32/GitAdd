@@ -28,7 +28,7 @@ function loadPlaces(map, lat, lng) {
       markers.forEach(marker => marker.addListener('click', function() {
           let imgHTML = '';
           if (this.place.photo) {
-            imgHTML = `<img src="https://s3.amazonaws.com/cbdoilmaps-public-images/stores/${this.place.photo || 'store.png'}" alt="${this.place.name}" style="max-height: 260px;" />`;
+            imgHTML = `<img src="https://s3.amazonaws.com/cbdoilmaps-public-images/stores/${this.place.photo || 'placeholder.jpeg'}" alt="${this.place.name}" style="max-height: 260px;" />`;
           }
         const html = `
           <div class="popup">

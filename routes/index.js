@@ -39,6 +39,7 @@ router.post('/add',
 router.post('/add/:id',
   authController.isLoggedIn,
   storeController.upload,
+  catchErrors(storeController.deletePhotos),
   catchErrors(storeController.resize),
   catchErrors(storeController.updateStore)
 );

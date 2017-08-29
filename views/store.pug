@@ -7,7 +7,10 @@ include mixins/_review
 block content
   .single
     .single__hero
-      img.single__image(src=`https://s3.amazonaws.com/cbdoilmaps-public-images/stores/${store.photo || 'placeholder.jpeg'}`)
+      if (store.banner)
+        img.single__image(src=`https://s3.amazonaws.com/cbdoilmaps-public-images/stores/${store.banner}`)
+      else
+        img.single__image(src=h.staticMap(store.location.coordinates))
       a.button.hero__button(href=`/stores`) All Stores
       if user && store.author.equals(user._id)
         a.button.hero__button.hero__button__edit(href=`/stores/${store._id}/edit`) Edit Store
@@ -31,17 +34,18 @@ block content
             a(href=`${store.website}`, style="border-bottom:none; text-decoration:underline;")= store.website
           p.address= store.location.address
 
-    .brand__map
-      .brand__map--top
-        //- h4.h4 
-          span 0 
-          | Lorem ipsum dolor sit.
-        .map-wrapper
-          img(src=h.staticMap(store.location.coordinates))
-      .brand__map--bottom
-        .listing-list 
-          //- p Lorem ipsum dolor sit amet, consectetur adipisicing.
-        //- a.button(href=`https://s3.amazonaws.com/cbdoilmaps-public-images/stores/${store.photo || 'placeholder.jpeg'}`).button show map
+    if (store.banner)
+      .brand__map
+        .brand__map--top
+          //- h4.h4
+            span 0
+            | Lorem ipsum dolor sit.
+          .map-wrapper
+            img(src=h.staticMap(store.location.coordinates))
+        .brand__map--bottom
+          .listing-list
+            //- p Lorem ipsum dolor sit amet, consectetur adipisicing.
+          //- a.button(href=`https://s3.amazonaws.com/cbdoilmaps-public-images/stores/${store.photo || 'placeholder.jpeg'}`).button show map
 
 
     p.clearfix

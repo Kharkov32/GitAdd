@@ -25,14 +25,20 @@ const multerOptions = {
 };
 
 exports.homePage = async (req, res) => {
-  const promoted = await Promoted.findOne({position: 1});
+    const promotedTop = Promoted
+        .find({ position: {$gt :  1, $lt : 6} })
+        .limit(4)
+        .sort({ position: 'asc' });
 
-  const stores = await Store
-    .find()
-    .limit(6)
-    .sort({ created: 'desc' });
-  
-  res.render('index', { title: 'Featured Stores', promoted, stores });
+    const promotedBanner = Promoted.findOne({ position: 1 });
+
+    const promotedBottom = Promoted
+        .find({ position: {$gt :  5, $lt : 10} })
+        .limit(4)
+        .sort({ position: 'asc' });
+
+    const [top, banner, bottom] = await Promise.all([promotedTop, promotedBanner, promotedBottom]);
+    res.render('index', { title: 'Featured Stores', top, banner, bottom });
 };
 
 exports.addStore = async (req, res) => {
@@ -40,40 +46,63 @@ exports.addStore = async (req, res) => {
   res.render('editStore', { title: 'Add Store', states });
 };
 
-exports.upload = multer(multerOptions).single('photo');
+exports.upload = multer(multerOptions).any('photos');
 
 exports.resize = async (req, res, next) => {
   // check if there is no new file to resize
-  if (!req.file) {
+  if (!req.files) {
     next();
     return;
   }
-  const extension = req.file.mimetype.split('/')[1];
-  req.body.photo = `${uuid.v4()}.${extension}`;
-  // Resize and write
-  const file = await jimp.read(req.file.buffer);
-  await file.resize(800, jimp.AUTO);
-  // Upload to s3
-  await file.getBuffer('image/png', function(err, image) {
-    const params = {
-      Bucket: 'cbdoilmaps-public-images',
-      Key: 'stores/' + req.body.photo,
-      Body: image,
-      ContentType: 'image/png',
-      CacheControl: 'max-age=172800',
-      ACL: 'public-read'
-    };
-    const putObjectPromise = s3.putObject(params).promise();
-    putObjectPromise
-      .then(function(data) {
-        next();
-      })
-      .catch(function(err) {
-        console.log(err);
-        req.flash('error', 'Failed to upload image!');
-        res.redirect('back');
+  for (const image of req.files) {
+      const extension = image.mimetype.split('/')[1];
+      const imageName = `${uuid.v4()}.${extension}`;
+      if (image.fieldname === 'photo') {
+          req.body.photo = imageName;
+      } else {
+          req.body.banner = imageName;
+      }
+      const file = await jimp.read(image.buffer);
+      await file.quality(60);
+      // Upload to s3
+      await file.getBuffer('image/png', function(err, out) {
+          const params = {
+              Bucket: 'cbdoilmaps-public-images',
+              Key: 'stores/' + imageName,
+              Body: out,
+              ContentType: 'image/png',
+              CacheControl: 'max-age=172800',
+              ACL: 'public-read'
+          };
+          const putObjectPromise = s3.putObject(params).promise();
+          putObjectPromise
+              .catch(function(err) {
+                  console.log(err);
+                  req.flash('error', 'Failed to upload image!');
+                  res.redirect('back');
+              });
       });
-  });
+  }
+  next();
+};
+
+exports.deletePhotos = async (req, res, next) => {
+    for (const image of req.files) {
+        const store = await Store.findById(req.params.id);
+        console.log(store[image.fieldname]);
+        const params = {
+            Bucket: 'cbdoilmaps-public-images',
+            Key: 'stores/' + store[image.fieldname]
+        };
+        const deleteObjectPromise = s3.deleteObject(params).promise();
+        deleteObjectPromise
+            .catch(function(err) {
+                console.log(err);
+                req.flash('error', 'Failed to upload image!');
+                res.redirect('back');
+            });
+    }
+    next();
 };
 
 exports.createStore = async (req, res) => {

@@ -11,10 +11,14 @@ mixin storeForm(store = {})
     label(for="wholesaler") Wholesaler
     input(type="radio" name="wholesaler" value=true checked=store.wholesaler)
     //- Image Upload
-    label(for="photo") Photo
+    label(for="photo") Profile Picture
       input(type="file" name="photo" id="photo" accept="image/gif, image/png, image/jpeg")
       if store.photo
         img(src=`https://s3.amazonaws.com/cbdoilmaps-public-images/stores/${store.photo}`, alt=store.name width=200)
+    label(for="banner") Banner Picture
+      input(type="file" name="banner" id="banner" accept="image/gif, image/png, image/jpeg")
+      if store.banner
+        img(src=`https://s3.amazonaws.com/cbdoilmaps-public-images/stores/${store.banner}`, alt=store.name width=200)
     //- address, lng and lat
     label(for="address") Address
     input(type="text" id="address" name="location[address]" value=(store.location && store.location.address))

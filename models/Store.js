@@ -33,6 +33,7 @@ const storeSchema = new mongoose.Schema({
   },
   state: String,
   photo: String,
+  banner: String,
   website: String,
   author: {
     type: mongoose.Schema.ObjectId,
