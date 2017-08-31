@@ -1069,7 +1069,7 @@ function loadPlaces(map, lat, lng) {
       return marker.addListener('click', function () {
         var imgHTML = '';
         if (this.place.photo) {
-          imgHTML = '<img src="https://s3.amazonaws.com/cbdoilmaps-public-images/stores/' + (this.place.photo || 'store.png') + '" alt="' + this.place.name + '" style="max-height: 260px;" />';
+          imgHTML = '<img src="https://s3.amazonaws.com/cbdoilmaps-public-images/stores/' + (this.place.photo || 'placeholder.jpeg') + '" alt="' + this.place.name + '" style="max-height: 260px;" />';
         }
         var html = '\n          <div class="popup">\n            <a href="/store/' + this.place.slug + '">\n              ' + imgHTML + '\n              <p>' + this.place.name + ' - ' + this.place.location.address + '</p>\n            </a>\n          </div>\n        ';
         infoWindow.setContent(html);

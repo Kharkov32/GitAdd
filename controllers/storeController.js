@@ -26,15 +26,15 @@ const multerOptions = {
 
 exports.homePage = async (req, res) => {
     const promotedTop = Promoted
-        .find({ position: {$gt :  1, $lt : 6} })
-        .limit(4)
+        .find({ position: {$gt :  1, $lt : 7} })
+        .limit(5)
         .sort({ position: 'asc' });
 
     const promotedBanner = Promoted.findOne({ position: 1 });
 
     const promotedBottom = Promoted
-        .find({ position: {$gt :  5, $lt : 10} })
-        .limit(4)
+        .find({ position: {$gt :  9, $lt : 14} })
+        .limit(5)
         .sort({ position: 'asc' });
 
     const [top, banner, bottom] = await Promise.all([promotedTop, promotedBanner, promotedBottom]);
@@ -121,7 +121,8 @@ exports.createStore = async (req, res) => {
 exports.createPromoted = async (req, res) => {
   req.body.store = req.params.store;
   req.body.author = req.params.author;
-  req.body.position = 1;
+  const position = await Promoted.find();
+  req.body.position = position.length + 1;
   let now = new Date();
   now.setHours(now.getHours() + 1);
   req.body.expirary = now;
