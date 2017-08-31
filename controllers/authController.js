@@ -5,6 +5,11 @@ const User = mongoose.model('User');
 const promisify = require('es6-promisify');
 const mail = require('../handlers/mail');
 
+exports.loginEmail = (req, res, next) => {
+  req.body.email = req.body.email.toLowerCase();
+  next();
+};
+
 exports.login = passport.authenticate('local', {
   failureRedirect: '/login',
   failureFlash: 'Failed Login!',
