@@ -12,7 +12,17 @@ const expressValidator = require('express-validator');
 const routes = require('./routes/index');
 const helpers = require('./helpers');
 const errorHandlers = require('./handlers/errorHandlers');
+const sitemap = require('express-sitemap');
 require('./handlers/passport');
+
+// generate sitemap
+sitemap({
+  sitemap: 'sitemap.xml', // path for .XMLtoFile
+  robots: 'robots.txt', // path for .TXTtoFile
+  generate: routes, // option or function, is the same
+  sitemapSubmission: '/sitemap.xml', // path of sitemap into robots
+}).toFile(); // write sitemap.xml and robots.txt
+
 
 // create our Express app
 const app = express();
