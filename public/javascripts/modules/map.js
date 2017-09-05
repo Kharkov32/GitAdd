@@ -59,41 +59,35 @@ function loadPlaces(map, lat, lng, placeName) {
 
 function makeMap(mapDiv) {
   if (!mapDiv) return;
+  
+  // geolocation is only available on HTTPS, having geolocation turned on could not be tested on localhost
+  // localhost testing works fine with the simulation that a user has location turned off on the production site
   if (navigator.geolocation) {
-    console.log(navigator.geolocation);
     navigator.geolocation.getCurrentPosition(showPosition, noGeo);
   }
+  // instantiated the map outside of showPosition so it can be passed along as an argument in the autocomplete event listener
+  const map = new google.maps.Map(mapDiv);
 
   function noGeo() {
-    setTimeout(showPosition(false), 1000);
+    setTimeout(showPosition(true), 1000);
   }
   function showPosition(position) {
     const location = { lat: 41.203323, lng: -77.194527 };
     if (position) {
-      lat = position.coords.latitude;
-      lng = position.coords.longitude;
+      location.lat = position.coords.latitude;
+      location.lng = position.coords.longitude;
     }
-    // make our map
-    const map = new google.maps.Map(mapDiv, {
-      center: {
-        lat: location.lat,
-        lng: location.lng
-      },
-      zoom: 10
-    });
-
-    // move the DOM elements and listeners inside the function scope of showPosition
-    // geolocation is only available on HTTPS, having geolocation turned on could not be tested on localhost
-    // localhost testing works fine with the simulation that a user has location turned off on the production site
-    const input = $('[name="geolocate"]');
-    const autocomplete = new google.maps.places.Autocomplete(input);
-    autocomplete.addListener('place_changed', () => {
-      const place = autocomplete.getPlace();
-      loadPlaces(map, place.geometry.location.lat(), place.geometry.location.lng(), place.name);
-    });
-
+    map.setCenter(location);
+    map.setZoom(10);
     loadPlaces(map, location.lat, location.lng);
   }
+
+  const input = $('[name="geolocate"]');
+  const autocomplete = new google.maps.places.Autocomplete(input);
+  autocomplete.addListener('place_changed', () => {
+    const place = autocomplete.getPlace();
+    loadPlaces(map, place.geometry.location.lat(), place.geometry.location.lng(), place.name);
+  });
 
 }
 
