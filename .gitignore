@@ -1,2 +1,4 @@
 variables.env 
+variables.local.env 
 node_modules
+aws.config.json
