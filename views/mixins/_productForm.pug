@@ -4,6 +4,8 @@ mixin productForm(product = {}, store = {})
     input(type="text" name="name" value=product.name)
     label(for="description") Description
     textarea(name="description")= product.description
+    label(for="link") External Link
+    input(type="url" name="link" value=product.link)
     //- Image Upload
     label(for="photo") Photo
       input(type="file" name="photo" id="photo" accept="image/gif, image/png, image/jpeg")
