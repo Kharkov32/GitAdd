@@ -1039,11 +1039,19 @@ var _bling = __webpack_require__(1);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function loadPlaces(map, lat, lng) {
+function loadPlaces(map, lat, lng, placeName) {
   _axios2.default.get('/api/stores/near?lat=' + lat + '&lng=' + lng).then(function (res) {
     var places = res.data;
     if (!places.length) {
       (0, _bling.$)('[name="geolocate"]').style.borderColor = "red";
+
+      // Alerting the user that there are no stores nearby.
+      // Also set the center to the city of the search and zoom out a bit
+      placeName ? alert('There are no stores nearby ' + placeName + '.') : null; // only call the alert if a placeName exists
+      var position = { lat: lat, lng: lng };
+      map.setCenter(position);
+      map.setZoom(10);
+
       return;
     } else {
       (0, _bling.$)('[name="geolocate"]').style.borderColor = "";
@@ -1085,36 +1093,34 @@ function loadPlaces(map, lat, lng) {
 
 function makeMap(mapDiv) {
   if (!mapDiv) return;
+
+  // geolocation is only available on HTTPS, having geolocation turned on could not be tested on localhost
+  // localhost testing works fine with the simulation that a user has location turned off on the production site
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition, noGeo);
   }
+  // instantiated the map outside of showPosition so it can be passed along as an argument in the autocomplete event listener
+  var map = new google.maps.Map(mapDiv);
 
   function noGeo() {
-    setTimeout(showPosition(false), 1000);
+    setTimeout(showPosition(true), 1000);
   }
   function showPosition(position) {
-    var lat = 41.203323;
-    var lng = -77.194527;
+    var location = { lat: 41.203323, lng: -77.194527 };
     if (position) {
-      lat = position.coords.latitude;
-      lng = position.coords.longitude;
+      location.lat = position.coords.latitude;
+      location.lng = position.coords.longitude;
     }
-    // make our map
-    var map = new google.maps.Map(mapDiv, {
-      center: {
-        lat: lat,
-        lng: lng
-      },
-      zoom: 10
-    });
-    loadPlaces(map, lat, lng);
+    map.setCenter(location);
+    map.setZoom(10);
+    loadPlaces(map, location.lat, location.lng);
   }
 
   var input = (0, _bling.$)('[name="geolocate"]');
   var autocomplete = new google.maps.places.Autocomplete(input);
   autocomplete.addListener('place_changed', function () {
     var place = autocomplete.getPlace();
-    loadPlaces(map, place.geometry.location.lat(), place.geometry.location.lng());
+    loadPlaces(map, place.geometry.location.lat(), place.geometry.location.lng(), place.name);
   });
 }
 
