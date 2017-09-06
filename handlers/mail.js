@@ -14,9 +14,15 @@ const transport = nodemailer.createTransport({
 });
 
 const generateHTML = (filename, options = {}) => {
-  const html = pug.renderFile(`${__dirname}/../views/email/${filename}.pug`, options);
+  let html;
+  try {
+    html = pug.renderFile(`${__dirname}/../views/email/${filename}.pug`, options);
+  } catch (err) {
+    console.log(err);
+    html = pug.render(`h5 Default Email Template ${options.data}`);
+  }
   const inlined = juice(html);
-  return inlined;
+  return inlined
 };
 
 exports.send = async (options) => {
