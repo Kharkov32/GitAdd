@@ -158,6 +158,6 @@ router.post('/api/email/submit',
 );
 
 // send mail routes
-router.post('/api/send/mail', mailController.send);
+router.post('/api/mail/send', mailController.send);
 
 module.exports = router;
