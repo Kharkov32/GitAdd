@@ -69,10 +69,11 @@ function makeMap(mapDiv) {
   const map = new google.maps.Map(mapDiv);
 
   function noGeo() {
-    setTimeout(showPosition(true), 1000);
+    setTimeout(showPosition(false), 1000);
   }
   function showPosition(position) {
     const location = { lat: 41.203323, lng: -77.194527 };
+    console.log(position);
     if (position) {
       location.lat = position.coords.latitude;
       location.lng = position.coords.longitude;
