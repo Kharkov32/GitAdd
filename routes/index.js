@@ -7,6 +7,7 @@ const userController = require('../controllers/userController');
 const authController = require('../controllers/authController');
 const adminController = require('../controllers/adminController');
 const reviewController = require('../controllers/reviewController');
+const mailController = require('../controllers/mailController');
 const { catchErrors } = require('../handlers/errorHandlers');
 
 // Generic Routes
@@ -155,5 +156,8 @@ router.post('/api/email/submit',
     catchErrors(userController.validateEmailSubmit),
     catchErrors(userController.emailSubmit)
 );
+
+// send mail routes
+router.post('/api/send/mail', mailController.send);
 
 module.exports = router;
