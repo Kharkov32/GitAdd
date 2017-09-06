@@ -1,5 +1,5 @@
 mixin storeProduct(product = {})
-  .product
+  a(href=product.link target="_blank").product
     .product__hero
       img(src=`https://s3.amazonaws.com/cbdoilmaps-public-images/products/${product.photo || 'product.png'}`)
     .product__details

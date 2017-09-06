@@ -24,6 +24,7 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: 'Your product must have a description!'
   },
+  link: String, // URI that will point to external site
   photo: String
 });
 

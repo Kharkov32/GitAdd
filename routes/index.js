@@ -7,6 +7,7 @@ const userController = require('../controllers/userController');
 const authController = require('../controllers/authController');
 const adminController = require('../controllers/adminController');
 const reviewController = require('../controllers/reviewController');
+const mailController = require('../controllers/mailController');
 const { catchErrors } = require('../handlers/errorHandlers');
 
 // Generic Routes
@@ -89,9 +90,11 @@ router.post('/account', catchErrors(userController.updateAccount));
 router.post('/account/forgot', catchErrors(authController.forgot));
 router.get('/account/reset/:token', catchErrors(authController.reset));
 router.post('/account/reset/:token',
-  authController.confirmedPasswords,
-  catchErrors(authController.update)
+authController.confirmedPasswords,
+catchErrors(authController.update)
 );
+router.get('/password/forgot', userController.forgotPasswordForm);
+
 // router.get('/hearts', authController.isLoggedIn, catchErrors(storeController.getHearts));
 // Admin section
 router.get('/admin/stores',
@@ -153,5 +156,8 @@ router.post('/api/email/submit',
     catchErrors(userController.validateEmailSubmit),
     catchErrors(userController.emailSubmit)
 );
+
+// send mail routes
+router.post('/api/mail/send', mailController.send);
 
 module.exports = router;
