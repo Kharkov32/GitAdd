@@ -7,6 +7,10 @@ exports.loginForm = (req, res) => {
   res.render('login', { title: 'Login' });
 };
 
+exports.forgotPasswordForm = (req, res) => {
+  res.render('forgotPassword', { title: 'To reset your password enter your E-mail below.' });
+};
+
 exports.registerForm = (req, res) => {
   res.render('register', { title: 'Register' });
 };
