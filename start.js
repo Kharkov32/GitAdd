@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 // import environmental variables from our variables.env file
 require('dotenv').config({ path: 'variables.env' });
+// require('dotenv').config({ path: 'variables.local.env' });
 
 // Connect to our Database and handle an bad connections
 mongoose.connect(process.env.DATABASE);
