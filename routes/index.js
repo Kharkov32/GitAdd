@@ -84,7 +84,7 @@ router.post('/register/vendor',
 // Generic User
 router.get('/login', userController.loginForm);
 router.post('/login', authController.loginEmail, authController.login);
-router.get('/logout', authController.logout);
+router.get('/logout', authController.logout, authController.redirectHome);
 router.get('/account', authController.isLoggedIn, userController.account);
 router.post('/account', catchErrors(userController.updateAccount));
 router.post('/account/forgot', catchErrors(authController.forgot));
@@ -93,7 +93,15 @@ router.post('/account/reset/:token',
 authController.confirmedPasswords,
 catchErrors(authController.update)
 );
+
+// forgot password route
 router.get('/password/forgot', userController.forgotPasswordForm);
+
+// redirect to forgot password route from the user account section
+// to maintain security the password cannot be changed while the user is logged in
+// the password reset token must be sent to verify the user who requested the reset is the same as the one who registered with the email
+router.get('/account/password/forgot', authController.logout, userController.forgotPasswordForm);
+
 
 // router.get('/hearts', authController.isLoggedIn, catchErrors(storeController.getHearts));
 // Admin section
