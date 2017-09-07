@@ -1,0 +1,17 @@
+extends layout
+
+include mixins/_storeCard
+include mixins/_promotedStoreCard
+
+block content
+  .inner
+    h2= title
+    if promoted && stores
+      .stores
+        each store in stores
+          +storeCard(store)
+        if banner
+          .promoted
+            +promotedStoreCard(promoted.store)
+    else
+      p No stores found

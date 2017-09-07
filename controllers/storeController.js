@@ -10,13 +10,14 @@ const jimp = require('jimp');
 const uuid = require('uuid');
 const AWS = require('aws-sdk');
 AWS.config.loadFromPath('./aws.config.json');
-const s3 = new AWS.S3({region: 'us-east-1'});
+const s3 = new AWS.S3({ region: 'us-east-1' });
+const capitalize = require('../helpers').capitalize;
 
 const multerOptions = {
   storage: multer.memoryStorage(),
   fileFilter(req, file, next) {
     const isPhoto = file.mimetype.startsWith('image/');
-    if(isPhoto) {
+    if (isPhoto) {
       next(null, true);
     } else {
       next({ message: 'That filetype isn\'t allowed!' }, false);
@@ -25,20 +26,20 @@ const multerOptions = {
 };
 
 exports.homePage = async (req, res) => {
-    const promotedTop = Promoted
-        .find({ position: {$gt :  1, $lt : 7} })
-        .limit(5)
-        .sort({ position: 'asc' });
+  const promotedTop = Promoted
+    .find({ position: { $gt: 1, $lt: 7 } })
+    .limit(5)
+    .sort({ position: 'asc' });
 
-    const promotedBanner = Promoted.findOne({ position: 1 });
+  const promotedBanner = Promoted.findOne({ position: 1 });
 
-    const promotedBottom = Promoted
-        .find({ position: {$gt :  9, $lt : 14} })
-        .limit(5)
-        .sort({ position: 'asc' });
+  const promotedBottom = Promoted
+    .find({ position: { $gt: 9, $lt: 14 } })
+    .limit(5)
+    .sort({ position: 'asc' });
 
-    const [top, banner, bottom] = await Promise.all([promotedTop, promotedBanner, promotedBottom]);
-    res.render('index', { title: 'Featured Stores', top, banner, bottom });
+  const [top, banner, bottom] = await Promise.all([promotedTop, promotedBanner, promotedBottom]);
+  res.render('index', { title: 'Featured Stores', top, banner, bottom });
 };
 
 exports.addStore = async (req, res) => {
@@ -55,54 +56,54 @@ exports.resize = async (req, res, next) => {
     return;
   }
   for (const image of req.files) {
-      const extension = image.mimetype.split('/')[1];
-      const imageName = `${uuid.v4()}.${extension}`;
-      if (image.fieldname === 'photo') {
-          req.body.photo = imageName;
-      } else {
-          req.body.banner = imageName;
-      }
-      const file = await jimp.read(image.buffer);
-      await file.quality(60);
-      // Upload to s3
-      await file.getBuffer('image/png', function(err, out) {
-          const params = {
-              Bucket: 'cbdoilmaps-public-images',
-              Key: 'stores/' + imageName,
-              Body: out,
-              ContentType: 'image/png',
-              CacheControl: 'max-age=172800',
-              ACL: 'public-read'
-          };
-          const putObjectPromise = s3.putObject(params).promise();
-          putObjectPromise
-              .catch(function(err) {
-                  console.log(err);
-                  req.flash('error', 'Failed to upload image!');
-                  res.redirect('back');
-              });
-      });
+    const extension = image.mimetype.split('/')[1];
+    const imageName = `${uuid.v4()}.${extension}`;
+    if (image.fieldname === 'photo') {
+      req.body.photo = imageName;
+    } else {
+      req.body.banner = imageName;
+    }
+    const file = await jimp.read(image.buffer);
+    await file.quality(60);
+    // Upload to s3
+    await file.getBuffer('image/png', function (err, out) {
+      const params = {
+        Bucket: 'cbdoilmaps-public-images',
+        Key: 'stores/' + imageName,
+        Body: out,
+        ContentType: 'image/png',
+        CacheControl: 'max-age=172800',
+        ACL: 'public-read'
+      };
+      const putObjectPromise = s3.putObject(params).promise();
+      putObjectPromise
+        .catch(function (err) {
+          console.log(err);
+          req.flash('error', 'Failed to upload image!');
+          res.redirect('back');
+        });
+    });
   }
   next();
 };
 
 exports.deletePhotos = async (req, res, next) => {
-    for (const image of req.files) {
-        const store = await Store.findById(req.params.id);
-        console.log(store[image.fieldname]);
-        const params = {
-            Bucket: 'cbdoilmaps-public-images',
-            Key: 'stores/' + store[image.fieldname]
-        };
-        const deleteObjectPromise = s3.deleteObject(params).promise();
-        deleteObjectPromise
-            .catch(function(err) {
-                console.log(err);
-                req.flash('error', 'Failed to upload image!');
-                res.redirect('back');
-            });
-    }
-    next();
+  for (const image of req.files) {
+    const store = await Store.findById(req.params.id);
+    console.log(store[image.fieldname]);
+    const params = {
+      Bucket: 'cbdoilmaps-public-images',
+      Key: 'stores/' + store[image.fieldname]
+    };
+    const deleteObjectPromise = s3.deleteObject(params).promise();
+    deleteObjectPromise
+      .catch(function (err) {
+        console.log(err);
+        req.flash('error', 'Failed to upload image!');
+        res.redirect('back');
+      });
+  }
+  next();
 };
 
 exports.createStore = async (req, res) => {
@@ -142,25 +143,25 @@ exports.removePromoted = async (req, res) => {
 
 exports.getStores = async (req, res) => {
   let getData = (ip) => {
-      return new Promise(function (resolve, reject) {
-          request("http://ip-api.com/json/" + ip, function (error, res, body) {
-              if (!error && res.statusCode == 200) {
-                  resolve(body);
-              } else {
-                  reject(error);
-              }
-          });
+    return new Promise(function (resolve, reject) {
+      request("http://ip-api.com/json/" + ip, function (error, res, body) {
+        if (!error && res.statusCode == 200) {
+          resolve(body);
+        } else {
+          reject(error);
+        }
       });
+    });
   };
   let getIP = async () => {
-      if (process.env.NODE_ENV === 'production') {
-          return req.headers['x-forwarded-for'];
-      } else {
-          // Cali:
-          return '65.49.22.66';
-          // Ohio:
-          // return '208.80.152.201';
-      }
+    if (process.env.NODE_ENV === 'production') {
+      return req.headers['x-forwarded-for'];
+    } else {
+      // Cali:
+      return '65.49.22.66';
+      // Ohio:
+      // return '208.80.152.201';
+    }
   };
 
   let ip = await getIP();
@@ -172,7 +173,7 @@ exports.getStores = async (req, res) => {
   const skip = (page * limit) - limit;
 
   const storesPromise = Store
-    .find({state: data.regionName, wholesaler: false})
+    .find({ state: data.regionName, wholesaler: false })
     .skip(skip)
     .limit(limit)
     .sort({ created: 'desc' });
@@ -187,36 +188,36 @@ exports.getStores = async (req, res) => {
     return;
   }
   if (stores.length === 0) {
-      req.flash('info', `No stores found in ${data.regionName}! Try searching a nearby state.`);
-      res.redirect(`/`);
-      return;
+    req.flash('info', `No stores found in ${data.regionName}! Try searching a nearby state.`);
+    res.redirect(`/`);
+    return;
   }
 
   res.render('stores', { title: `Stores in ${data.regionName}`, stores, page, pages, count });
 };
 
 exports.getWholesale = async (req, res) => {
-    const page = req.params.page || 1;
-    const limit = 6;
-    const skip = (page * limit) - limit;
+  const page = req.params.page || 1;
+  const limit = 6;
+  const skip = (page * limit) - limit;
 
-    const storesPromise = Store
-        .find({wholesaler: true})
-        .skip(skip)
-        .limit(limit)
-        .sort({ created: 'desc' });
+  const storesPromise = Store
+    .find({ wholesaler: true })
+    .skip(skip)
+    .limit(limit)
+    .sort({ created: 'desc' });
 
-    const countPromise = Store.count({wholesaler: true});
+  const countPromise = Store.count({ wholesaler: true });
 
-    const [stores, count] = await Promise.all([storesPromise, countPromise]);
-    const pages = Math.ceil(count / limit);
-    if (!stores.length && skip) {
-        req.flash('info', `You asked for page ${page}. But that doesn't exist. So I put you on page ${pages}`);
-        res.redirect(`/wholesalers/page/${pages}`);
-        return;
-    }
+  const [stores, count] = await Promise.all([storesPromise, countPromise]);
+  const pages = Math.ceil(count / limit);
+  if (!stores.length && skip) {
+    req.flash('info', `You asked for page ${page}. But that doesn't exist. So I put you on page ${pages}`);
+    res.redirect(`/wholesalers/page/${pages}`);
+    return;
+  }
 
-    res.render('stores', { title: 'Wholesalers', stores, page, pages, count });
+  res.render('stores', { title: 'Wholesalers', stores, page, pages, count });
 };
 
 const confirmOwner = (store, user) => {
@@ -235,9 +236,9 @@ exports.editStore = async (req, res) => {
 exports.updateStore = async (req, res) => {
   req.body.location.type = 'Point';
   if (req.body.wholesaler === 'value') {
-      req.body.wholesaler = true;
+    req.body.wholesaler = true;
   } else {
-      req.body.wholesaler = false;
+    req.body.wholesaler = false;
   }
   const store = await Store.findOneAndUpdate({ _id: req.params.id }, req.body, {
     new: true, // returns the new store instead of the old one
@@ -255,44 +256,46 @@ exports.getStoreBySlug = async (req, res, next) => {
 
 exports.searchStores = async (req, res) => {
   const stores = await Store
-  .find({
-    $text: {
-      $search: req.query.q
-    }
-  }, {
-    score: { $meta: 'textScore' }
-  })
-  .sort({
-    score: { $meta: 'textScore' }
-  })
-  .limit(5);
+    .find({
+      $text: {
+        $search: req.query.q
+      }
+    }, {
+      score: { $meta: 'textScore' }
+    })
+    .sort({
+      score: { $meta: 'textScore' }
+    })
+    .limit(5);
   res.json(stores);
 };
 
 exports.searchStates = async (req, res) => {
-    const states = await State
-        .find({
-            $text: {
-                $search: req.query.q
-            }
-        }, {
-            score: { $meta: 'textScore' }
-        })
-        .sort({
-            score: { $meta: 'textScore' }
-        })
-        .limit(5);
-    res.json(states);
+  const states = await State
+    .find({
+      $text: {
+        $search: req.query.q
+      }
+    }, {
+      score: { $meta: 'textScore' }
+    })
+    .sort({
+      score: { $meta: 'textScore' }
+    })
+    .limit(5);
+  res.json(states);
 };
 
 exports.getStoresByState = async (req, res) => {
-    const promoted = await Promoted.findOne({position: 1});
+  req.params.state = capitalize(req.params.state); 
+  // capitalize the state so it always matches the fields in the DB
+  
+  const promoted = await Promoted.findOne({ position: 1 });
+  const stores = await Store
+    .find({ state: req.params.state, wholesaler: false })
+    .sort({ created: 'desc' });
 
-    const stores = await Store
-        .find({state: req.params.state})
-        .sort({ created: 'desc' });
-
-    res.render('index', { title: `Stores in ${req.params.state}`, promoted, stores });
+  res.render('storesByState', { title: `Stores in ${req.params.state}`, promoted, stores });
 };
 
 exports.mapStores = async (req, res) => {
@@ -323,8 +326,8 @@ exports.heartStore = async (req, res) => {
   const operator = hearts.includes(req.params.id) ? '$pull' : '$addToSet';
   const user = await User
     .findByIdAndUpdate(req.user._id,
-      { [operator]: { hearts: req.params.id } },
-      { new: true }
+    { [operator]: { hearts: req.params.id } },
+    { new: true }
     );
   res.json(user);
 };
