@@ -26,3 +26,10 @@ exports.menu = [
   { slug: '/wholesalers', title: 'Wholesalers', icon: 'wholesaler', },
   { slug: '/map', title: 'Map', icon: 'map', }
 ];
+
+exports.capitalize = (string) => {
+  return string.toLowerCase()
+    .charAt(0)
+    .toUpperCase() 
+    + string.slice(1); 
+}

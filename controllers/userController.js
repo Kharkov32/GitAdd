@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const User = mongoose.model('User');
 const Email = mongoose.model('Email');
 const promisify = require('es6-promisify');
+const mail = require('../handlers/mail');
 
 exports.loginForm = (req, res) => {
   res.render('login', { title: 'Login' });
@@ -53,12 +54,26 @@ exports.register = async (req, res, next) => {
   const user = new User({ email: req.body.email, name: req.body.name });
   const register = promisify(User.register, User);
   await register(user, req.body.password);
+
+  await mail.send({
+    user,
+    filename: 'account-created',
+    subject: 'Welcome to CBDOilMaps!',
+  });
+
   next();
 };
 exports.registerVendor = async (req, res, next) => {
   const user = new User({ email: req.body.email, name: req.body.name, vendor: true });
   const register = promisify(User.register, User);
   await register(user, req.body.password);
+
+  await mail.send({
+    user,
+    filename: 'account-created',
+    subject: 'Welcome to CBDOilMaps!',
+  });
+
   next();
 };
 
@@ -77,6 +92,13 @@ exports.updateAccount = async (req, res) => {
     { $set: updates },
     { new: true, runValidators: true, context: 'query' }
   );
+
+  await mail.send({
+    user,
+    filename: 'account-updated',
+    subject: 'Your account has been successfully updated.',
+  });
+
   req.flash('success', 'Updated the profile!');
   res.redirect('back');
 };

@@ -6,7 +6,7 @@ include mixins/_promotedStoreCard
 block content
   .inner
     h2= title
-    if top.length > 0
+    if top
       .stores
         each store in top
           +storeCard(store.store)
