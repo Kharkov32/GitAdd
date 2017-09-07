@@ -1,4 +1,12 @@
 const mail = require('../handlers/mail');
+const fs = require('fs');
+const promisify = require('es6-promisify');
+const readFile = promisify(fs.readFile, fs);
+
+exports.sitemap = async (req, res) => {
+    const sitemap = await readFile(__dirname + '/../sitemap.xml', 'utf-8');
+    res.status(200).send(sitemap);
+};
 
 exports.aboutPage = (req, res) => {
   res.render('generic', {
