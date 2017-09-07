@@ -19,7 +19,7 @@ const generateHTML = (filename, options = {}) => {
     html = pug.renderFile(`${__dirname}/../views/email/${filename}.pug`, options);
   } catch (err) {
     console.log(err);
-    html = pug.render(`h5 Default Email Template ${options.data}`);
+    html = pug.renderFile(`${__dirname}/../views/email/email-layout.pug`, options);
   }
   const inlined = juice(html);
   return inlined
