@@ -12,6 +12,7 @@ const AWS = require('aws-sdk');
 AWS.config.loadFromPath('./aws.config.json');
 const s3 = new AWS.S3({ region: 'us-east-1' });
 const capitalize = require('../helpers').capitalize;
+const mail = require('../handlers/mail');
 
 const multerOptions = {
   storage: multer.memoryStorage(),
@@ -115,6 +116,14 @@ exports.createStore = async (req, res) => {
   }
   const store = await (new Store(req.body)).save();
   req.flash('success', `Successfully Created ${store.name}.`);
+
+  await mail.send({
+    user: req.user,
+    filename: 'store-created',
+    subject: 'You have created a new Store!',
+    store
+  });
+
   res.redirect(`/store/${store.slug}`);
 };
 
@@ -245,6 +254,14 @@ exports.updateStore = async (req, res) => {
     runValidators: true
   }).exec();
   req.flash('success', `Successfully updated <strong>${store.name}</strong>. <a href="/store/${store.slug}">View Store →</a>`);
+
+  await mail.send({
+    user: req.user,
+    filename: 'store-updated',
+    subject: `You have updated the Store ${store.name}!`,
+    store
+  });
+
   res.redirect(`/stores/${store._id}/edit`);
 };
 
