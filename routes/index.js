@@ -23,6 +23,7 @@ router.get('/privacy', genericController.privacyPage);
 router.get('/terms', genericController.termsPage);
 router.get('/contact', genericController.contactPage);
 router.post('/contact', catchErrors(genericController.contactPage));
+router.get('/sitemap.xml', genericController.sitemap);
 
 // Store
 router.get('/add', 

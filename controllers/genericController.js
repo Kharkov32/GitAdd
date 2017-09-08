@@ -1,7 +1,7 @@
 const mail = require('../handlers/mail');
 const fs = require('fs');
 const promisify = require('es6-promisify');
-const readFile = promisify(fs.readFile, fs);
+const path = require('path');
 
 exports.aboutPage = (req, res) => {
   res.render('generic', {
@@ -156,4 +156,8 @@ exports.contactPage = async (req, res) => {
         return res.redirect('back');
     }
     res.render('contact', { title: 'Contact' });
+};
+
+exports.sitemap = (req, res) => {
+    res.sendFile(path.join(__dirname, '../sitemap.xml'));
 };
