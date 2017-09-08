@@ -168,9 +168,4 @@ router.post('/api/email/submit',
 // send mail routes
 router.post('/api/mail/send', mailController.send);
 
-// Sitemap
-router.get('/sitemap.xml', genericController.sitemap);
-router.get('/Sitemap.xml', genericController.sitemap);
-
-
 module.exports = router;
