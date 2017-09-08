@@ -1,4 +1,5 @@
 const nodemailer = require('nodemailer');
+require('dotenv').config({ path: 'variables.env' });
 const pug = require('pug');
 const juice = require('juice');
 const htmlToText = require('html-to-text');

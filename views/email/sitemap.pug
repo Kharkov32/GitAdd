@@ -1,0 +1,11 @@
+extends email-layout
+
+block content
+  h2 Sitemap Generated!
+  a(href='https://cbdoilmaps.com/sitemap.xml') https://cbdoilmaps.com/sitemap.xml
+  p Added: #{stats.added} Ignored: #{stats.ignored} Errored: #{stats.errored}
+  each error in errored
+    p Code: #{error.code}
+    p Message: #{error.message}
+    p URL: #{error.url}
+    br
