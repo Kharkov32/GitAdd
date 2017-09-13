@@ -1,8 +1,8 @@
 mixin promotedStoreCard(store = {})
   .store
     .store__hero
-      if store.photo !== undefined
-        img(src=`https://s3.amazonaws.com/cbdoilmaps-public-images/stores/${store.photo}`)
+      if store.banner !== undefined
+        img(src=`https://s3.amazonaws.com/cbdoilmaps-public-images/stores/${store.banner}`)
       else
         img(src=h.staticMap(store.location.coordinates))
 

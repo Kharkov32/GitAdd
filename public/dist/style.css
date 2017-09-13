@@ -1478,7 +1478,11 @@ p.clearfix {
   padding: 0.5rem; }
 
 .store__hero img {
-  position: static; }
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%); }
 
 div.tab {
   overflow: hidden;
