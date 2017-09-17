@@ -1294,8 +1294,7 @@ h4.h4 {
 .inner {
   max-width: 1200px;
   margin: auto;
-  position: relative;
-  z-index: 100; }
+  position: relative; }
 
 .brand__map {
   width: 360px;

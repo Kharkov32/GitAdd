@@ -1,11 +1,71 @@
-import axios from 'axios';
 import dompurify from 'dompurify';
+const statesArray = [
+    "Alabama",
+    "Alaska",
+    "American Samoa",
+    "Arizona",
+    "Arkansas",
+    "California",
+    "Colorado",
+    "Connecticut",
+    "Delaware",
+    "District Of Columbia",
+    "Federated States Of Micronesia",
+    "Florida",
+    "Georgia",
+    "Guam",
+    "Hawaii",
+    "Idaho",
+    "Illinois",
+    "Indiana",
+    "Iowa",
+    "Kansas",
+    "Kentucky",
+    "Louisiana",
+    "Maine",
+    "Marshall Islands",
+    "Maryland",
+    "Massachusetts",
+    "Michigan",
+    "Minnesota",
+    "Mississippi",
+    "Missouri",
+    "Montana",
+    "Nebraska",
+    "Nevada",
+    "New Hampshire",
+    "New Jersey",
+    "New Mexico",
+    "New York",
+    "North Carolina",
+    "North Dakota",
+    "Northern Mariana Islands",
+    "Ohio",
+    "Oklahoma",
+    "Oregon",
+    "Palau",
+    "Pennsylvania",
+    "Puerto Rico",
+    "Rhode Island",
+    "South Carolina",
+    "South Dakota",
+    "Tennessee",
+    "Texas",
+    "Utah",
+    "Vermont",
+    "Virgin Islands",
+    "Virginia",
+    "Washington",
+    "West Virginia",
+    "Wisconsin",
+    "Wyoming"
+];
 
 function searchResultsHTML(states) {
   return states.map(state => {
     return `
-      <a href="/state/${state.name}" class="search__result">
-        <strong>${state.name}</strong>
+      <a href="/state/${state}" class="search__result">
+        <strong>${state}</strong>
       </a>
     `;
   }).join('');
@@ -27,25 +87,24 @@ function typeAhead(search) {
     // show the search results!
     searchResults.style.display = 'block';
 
-    axios
-      .get(`/api/state/search?q=${this.value}`)
-      .then(res => {
-        if (res.data.length) {
-          searchResults.innerHTML = dompurify.sanitize(searchResultsHTML(res.data));
-          return;
+    let prefixTextToFind = this.value.toLowerCase();
+    let matches = statesArray.filter(function(stackValue){
+        //get rid of all falsely objects
+        if (stackValue) {
+            return (stackValue.substring(0, prefixTextToFind.length).toLowerCase() === prefixTextToFind);
         }
-        // tell them nothing came back
-        searchResults.innerHTML = dompurify.sanitize(`<div class="search__result">No results for ${this.value}</div>`);
-      })
-      .catch(err => {
-        console.error(err);
-      });
+    });
+    if (matches.length > 0) {
+        searchResults.innerHTML = dompurify.sanitize(searchResultsHTML(matches));
+    } else {
+        searchResults.innerHTML = dompurify.sanitize(`<div class="search__result">No results for ${this.value}</div>`)
+    }
   });
 
   // handle keyboard inputs
   searchInput.on('keyup', (e) => {
     // if they aren't pressing up, down or enter, who cares!
-    if (![38, 40, 13].includes(e.keyCode)) {
+    if (![38, 40, 13, 0].includes(e.keyCode)) {
       return;
     }
     const activeClass = 'search__result--active';

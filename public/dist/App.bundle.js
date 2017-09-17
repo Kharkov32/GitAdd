@@ -1200,19 +1200,17 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _axios = __webpack_require__(2);
-
-var _axios2 = _interopRequireDefault(_axios);
-
 var _dompurify = __webpack_require__(33);
 
 var _dompurify2 = _interopRequireDefault(_dompurify);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var statesArray = ["Alabama", "Alaska", "American Samoa", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "District Of Columbia", "Federated States Of Micronesia", "Florida", "Georgia", "Guam", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Marshall Islands", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Northern Mariana Islands", "Ohio", "Oklahoma", "Oregon", "Palau", "Pennsylvania", "Puerto Rico", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virgin Islands", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"];
+
 function searchResultsHTML(states) {
   return states.map(function (state) {
-    return '\n      <a href="/state/' + state.name + '" class="search__result">\n        <strong>' + state.name + '</strong>\n      </a>\n    ';
+    return "\n      <a href=\"/state/" + state + "\" class=\"search__result\">\n        <strong>" + state + "</strong>\n      </a>\n    ";
   }).join('');
 }
 
@@ -1223,8 +1221,6 @@ function typeAhead(search) {
   var searchResults = search.querySelector('.search__results');
 
   searchInput.on('input', function () {
-    var _this = this;
-
     // if there is no value, quit it!
     if (!this.value) {
       searchResults.style.display = 'none';
@@ -1234,26 +1230,28 @@ function typeAhead(search) {
     // show the search results!
     searchResults.style.display = 'block';
 
-    _axios2.default.get('/api/state/search?q=' + this.value).then(function (res) {
-      if (res.data.length) {
-        searchResults.innerHTML = _dompurify2.default.sanitize(searchResultsHTML(res.data));
-        return;
+    var prefixTextToFind = this.value.toLowerCase();
+    var matches = statesArray.filter(function (stackValue) {
+      //get rid of all falsely objects
+      if (stackValue) {
+        return stackValue.substring(0, prefixTextToFind.length).toLowerCase() === prefixTextToFind;
       }
-      // tell them nothing came back
-      searchResults.innerHTML = _dompurify2.default.sanitize('<div class="search__result">No results for ' + _this.value + '</div>');
-    }).catch(function (err) {
-      console.error(err);
     });
+    if (matches.length > 0) {
+      searchResults.innerHTML = _dompurify2.default.sanitize(searchResultsHTML(matches));
+    } else {
+      searchResults.innerHTML = _dompurify2.default.sanitize("<div class=\"search__result\">No results for " + this.value + "</div>");
+    }
   });
 
   // handle keyboard inputs
   searchInput.on('keyup', function (e) {
     // if they aren't pressing up, down or enter, who cares!
-    if (![38, 40, 13].includes(e.keyCode)) {
+    if (![38, 40, 13, 0].includes(e.keyCode)) {
       return;
     }
     var activeClass = 'search__result--active';
-    var current = search.querySelector('.' + activeClass);
+    var current = search.querySelector("." + activeClass);
     var items = search.querySelectorAll('.search__result');
     var next = void 0;
     if (e.keyCode === 40 && current) {

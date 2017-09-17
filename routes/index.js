@@ -147,7 +147,6 @@ router.post('/admin/store/:slug/product/:product',
 */
 
 router.get('/api/search', catchErrors(storeController.searchStores));
-router.get('/api/state/search', catchErrors(storeController.searchStates));
 router.get('/api/stores/near', catchErrors(storeController.mapStores));
 router.post('/api/stores/:id/heart', catchErrors(storeController.heartStore));
 // promote

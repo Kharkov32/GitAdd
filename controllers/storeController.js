@@ -1,7 +1,6 @@
 const fs = require('fs');
 const mongoose = require('mongoose');
 const Store = mongoose.model('Store');
-const State = mongoose.model('State');
 const Promoted = mongoose.model('Promoted');
 const User = mongoose.model('User');
 const multer = require('multer');
@@ -285,22 +284,6 @@ exports.searchStores = async (req, res) => {
     })
     .limit(5);
   res.json(stores);
-};
-
-exports.searchStates = async (req, res) => {
-  const states = await State
-    .find({
-      $text: {
-        $search: req.query.q
-      }
-    }, {
-      score: { $meta: 'textScore' }
-    })
-    .sort({
-      score: { $meta: 'textScore' }
-    })
-    .limit(5);
-  res.json(states);
 };
 
 exports.getStoresByState = async (req, res) => {
