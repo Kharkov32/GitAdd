@@ -11,9 +11,12 @@ block content
         each store in top
           +storeCard(store.store)
         if banner
+          h2(style='color:green;') Featured Store
           .promoted
             +promotedStoreCard(banner.store)
-        if bottom.length > 0
+      if bottom.length > 0
+        h2 Featured Wholesalers
+        .stores
           each store in bottom
             +storeCard(store.store)
     else
