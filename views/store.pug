@@ -31,7 +31,7 @@ block content
             span No reviews yet
         .details
           p.url
-            a(href=`${store.website}`, style="border-bottom:none; text-decoration:underline;")= store.website
+            a(href=`${store.website}`, target='_blank', style="border-bottom:none; text-decoration:underline;")= store.website
           p.address= store.location.address
 
     if (store.banner)
