@@ -1371,7 +1371,8 @@ h4.h4 {
 
 .single__hero {
   -webkit-clip-path: none;
-  clip-path: none; }
+  clip-path: none;
+  z-index: 0; }
 
 p.clearfix {
   clear: both; }
