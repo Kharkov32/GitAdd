@@ -1,6 +1,7 @@
 const fs = require('fs');
 const mongoose = require('mongoose');
 const Store = mongoose.model('Store');
+const State = mongoose.model('State');
 const Promoted = mongoose.model('Promoted');
 const User = mongoose.model('User');
 const multer = require('multer');
