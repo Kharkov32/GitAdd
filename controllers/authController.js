@@ -17,6 +17,13 @@ exports.login = passport.authenticate('local', {
   successFlash: 'You are now logged in!'
 });
 
+exports.vendorRegister = passport.authenticate('local', {
+    failureRedirect: '/login',
+    failureFlash: 'Failed Login!',
+    successRedirect: '/add',
+    successFlash: 'You are now logged in! Create a store below:'
+});
+
 exports.logout = (req, res, next) => {
   req.logout();
   req.flash('success', 'You are now logged out!');

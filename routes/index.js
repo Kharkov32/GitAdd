@@ -80,7 +80,7 @@ router.post('/register',
 router.post('/register/vendor',
   catchErrors(userController.validateRegister),
   catchErrors(userController.registerVendor),
-  authController.login
+  authController.vendorRegister
 );
 // Generic User
 router.get('/login', userController.loginForm);
