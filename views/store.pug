@@ -10,7 +10,7 @@ block content
       if (store.banner)
         img.single__image(src=`https://s3.amazonaws.com/cbdoilmaps-public-images/stores/${store.banner}`)
       else
-        img.single__image(src=h.staticMap(store.location.coordinates))
+        img.single__image(src=h.staticMap(store.location.coordinates) alt=`${store.name} Google Maps Location`)
       a.button.hero__button(href=`/stores`) All Stores
       if user && store.author.equals(user._id)
         a.button.hero__button.hero__button__edit(href=`/stores/${store._id}/edit`) Edit Store
@@ -37,24 +37,18 @@ block content
     if (store.banner)
       .brand__map
         .brand__map--top
-          //- h4.h4
-            span 0
-            | Lorem ipsum dolor sit.
           .map-wrapper
             img(src=h.staticMap(store.location.coordinates))
         .brand__map--bottom
           .listing-list
-            //- p Lorem ipsum dolor sit amet, consectetur adipisicing.
-          //- a.button(href=`https://s3.amazonaws.com/cbdoilmaps-public-images/stores/${store.photo || 'placeholder.jpeg'}`).button show map
-
 
     p.clearfix
     
     .tabs 
       .tab
-        a.button.tablinks.active(data-open="description") description 
-        a.button.tablinks(data-open="products") products
-        a.button.tablinks(data-open="reviews") reviews
+        a.button.tablinks.active(data-open="description") Description
+        a.button.tablinks(data-open="products") Products
+        a.button.tablinks(data-open="reviews") Reviews
 
       .description.tabcontent.open
         h2.storeCardTitle.title--single
@@ -66,7 +60,6 @@ block content
             each p in store.products
               +storeProduct(p)
 
-          //- p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos ipsa ea aspernatur ducimus sint dolorem distinctio dolor est quam exercitationem minima cum, minus atque maxime deleniti possimus, aperiam pariatur repellendus.
       .reviews.tabcontent
         if user
           +reviewForm(store)

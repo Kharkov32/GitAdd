@@ -1,9 +1,6 @@
 div.tab {
   overflow: hidden;
   width: 75%;
-  // margin: auto;
-  // border: 1px solid #ccc;
-  // background-color: #f1f1f1;
 }
 
 div.tab a {
@@ -24,7 +21,7 @@ div.tab a {
   text-align: center;
   text-decoration: none;
   white-space: nowrap;
-  font-size: 20px;
+  font-size: 18px;
   border-bottom: 1px solid #ddd;
 }
 
@@ -33,14 +30,12 @@ div.tab a:hover {
 }
 
 div.tab a.active {
-  // background-color: #ccc;
-  font-weight: 800;
+  border-bottom: 3px solid #ddd;
 }
 
 .tabcontent {
   display: none;
   padding: 6px 12px;
-  // border-bottom: 1px solid #ccc;
   border-top: none;
 }
 

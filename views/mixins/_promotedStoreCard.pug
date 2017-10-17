@@ -6,7 +6,7 @@ mixin promotedStoreCard(store = {})
       else if store.photo !== undefined
         img(src=`https://s3.amazonaws.com/cbdoilmaps-public-images/stores/${store.photo}`)
       else
-        img(src=h.staticMap(store.location.coordinates))
+        img(src=h.staticMap(store.location.coordinates) alt=`${store.name} Google Maps Location`)
 
     .store__details
       h2.storeCardTitle
