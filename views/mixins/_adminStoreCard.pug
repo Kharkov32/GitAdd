@@ -1,23 +1,6 @@
 mixin adminStoreCard(store = {})
   .store
     .store__hero
-      .store__actions
-        if user
-          .store__action.store__action--heart
-            form.heart(method="POST" action=`/api/stores/${store._id}/heart`)
-              - const heartStrings = user.hearts.map(obj => obj.toString())
-              - const heartClass = heartStrings.includes(store._id.toString()) ? 'heart__button--hearted' : ''
-              button.heart__button(type="submit" name="heart" class=heartClass)
-                != h.icon('heart')
-        if user && store.author.equals(user._id)
-          .store__action.store__action--edit
-            a(href=`/stores/${store._id}/edit`)
-              != h.icon('pencil')
-        if store.reviews
-          .store__action.store__action--count
-            != h.icon('review')
-            span= store.reviews.length
-
       if store.photo !== undefined
         img(src=`https://s3.amazonaws.com/cbdoilmaps-public-images/stores/${store.photo}`)
       else
@@ -34,6 +17,9 @@ mixin adminStoreCard(store = {})
       p
         a(href=`/admin/store/${store.slug}/products`)
           input.button(type="submit" value="PRODUCTS")
+      p
+        a(href=`/admin/store/alts/${store.slug}`)
+          input.button(type="submit" value="ALT TAGS")
 
       form.form(style="margin-top:0; padding: 1rem;" action=`/api/store/promote/${store._id}/${store.author}` method="POST")
         input.button(type="submit" value="PROMOTE")

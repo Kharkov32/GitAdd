@@ -104,7 +104,6 @@ router.get('/password/forgot', userController.forgotPasswordForm);
 router.get('/account/password/forgot', authController.logout, userController.forgotPasswordForm);
 
 
-// router.get('/hearts', authController.isLoggedIn, catchErrors(storeController.getHearts));
 // Admin section
 router.get('/admin/stores',
   authController.isLoggedIn,
@@ -140,6 +139,16 @@ router.post('/admin/store/:slug/product/:product',
     authController.isLoggedIn,
     authController.isAdmin,
     catchErrors(adminController.deleteProductById)
+);
+router.get('/admin/store/alts/:slug',
+    authController.isLoggedIn,
+    authController.isAdmin,
+    catchErrors(adminController.altsBySlug)
+);
+router.post('/admin/store/:slug/alts/:id',
+    authController.isLoggedIn,
+    authController.isAdmin,
+    catchErrors(adminController.editAltsBySlug)
 );
 
 /*

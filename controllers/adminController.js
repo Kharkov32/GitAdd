@@ -104,3 +104,18 @@ exports.deleteProductById = async (req, res) => {
             res.redirect('back');
         });
 };
+
+exports.altsBySlug = async (req, res) => {
+    const slug = req.params.slug;
+    const store = await Store.findOne({ slug });
+    res.render('adminAlts', { 'title': `Alt Tags for ${store.name}`, store });
+};
+
+exports.editAltsBySlug = async (req, res) => {
+    console.log(req.body);
+
+    const store = await Store.findOneAndUpdate({ _id: req.params.id }, req.body).exec();
+
+    req.flash('success', 'Updated the store!');
+    res.redirect('back');
+};

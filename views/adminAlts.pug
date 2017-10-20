@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  .inner
+    h2= title
+    p(style="color: red;") WARNING!!! Everything you do on this page is permanent AND NON-REVERSIBLE
+
+    form(action=`/admin/store/${store.slug}/alts/${store._id}` method="POST")
+      label(for="photoAlt") Logo Alt
+      input(type="text" id="photoAlt" name="photoAlt" value=store.photoAlt)
+
+      label(for="bannerAlt") Banner Alt
+      input(type="text" id="bannerAlt" name="bannerAlt" value=store.bannerAlt)
+
+      input.button(type="submit" value="Update Stores Alt Tags")
