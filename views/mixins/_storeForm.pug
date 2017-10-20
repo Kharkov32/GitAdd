@@ -5,7 +5,7 @@ mixin storeForm(store = {})
     label(for="description") Description
     textarea(name="description")= store.description
     label(for="website") Website
-    input(type="url" name="website" value=store.website)
+    input(type="url" placeholder="http://cbdoilmaps.com" name="website" value=store.website)
     label(for="wholesaler") Store
     input(type="radio" name="wholesaler" value=false checked=!store.wholesaler)
     label(for="wholesaler") Wholesaler
