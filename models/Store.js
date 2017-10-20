@@ -33,7 +33,15 @@ const storeSchema = new mongoose.Schema({
   },
   state: String,
   photo: String,
+  photoAlt: {
+    type: String,
+    default: 'Logo image for CBD Oil Store'
+  },
   banner: String,
+  bannerAlt: {
+      type: String,
+      default: 'Banner image for CBD Oil Store'
+  },
   website: String,
   author: {
     type: mongoose.Schema.ObjectId,
