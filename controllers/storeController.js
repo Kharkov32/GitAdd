@@ -227,9 +227,11 @@ exports.getStores = async (req, res) => {
       return req.headers['x-forwarded-for'];
     } else {
       // Cali:
-      return '65.49.22.66';
+      // return '65.49.22.66';
       // Ohio:
       // return '208.80.152.201';
+      // Pennsylvania:
+      return '147.31.182.137';
     }
   };
 
@@ -247,7 +249,7 @@ exports.getStores = async (req, res) => {
     .limit(limit)
     .sort({ created: 'desc' });
 
-  const countPromise = Store.count();
+  const countPromise = Store.count({ state: data.regionName, wholesaler: false });
 
   const [stores, count] = await Promise.all([storesPromise, countPromise]);
   const pages = Math.ceil(count / limit);
