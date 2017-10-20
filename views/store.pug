@@ -21,7 +21,7 @@ block content
   .single__details.inner
     .brand__avatar
       if (store.photoAlt)
-        img(src=`https://s3.amazonaws.com/cbdoilmaps-public-images/stores/${store.photo || 'placeholder.jpeg'}` alt=store.photoAlt style="width: 200px;height:200px;background-color:white;")
+        img(src=`https://s3.amazonaws.com/cbdoilmaps-public-images/stores/${store.photo || 'placeholder.jpeg'}` alt=store.photoAlt style="width: 200px;height:200px;background-color:white; object-fit:conatin;")
       else
         img(src=`https://s3.amazonaws.com/cbdoilmaps-public-images/stores/${store.photo || 'placeholder.jpeg'}` alt=`${store.name} Logo image` style="width: 200px;height:200px;background-color:white;")
       .preview
