@@ -112,10 +112,7 @@ exports.altsBySlug = async (req, res) => {
 };
 
 exports.editAltsBySlug = async (req, res) => {
-    console.log(req.body);
-
     const store = await Store.findOneAndUpdate({ _id: req.params.id }, req.body).exec();
-
     req.flash('success', 'Updated the store!');
     res.redirect('back');
 };
