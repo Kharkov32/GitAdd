@@ -1410,7 +1410,11 @@ p.clearfix {
   content: none; }
 
 .product__hero img {
-  position: static; }
+  position: static;
+  width: 200px;
+  height: 200px;
+  background-color: white;
+  object-fit: contain; }
 
 .hero__button {
   background: #ED8F03;
