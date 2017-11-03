@@ -1339,7 +1339,8 @@ h4.h4 {
       margin-right: 10px; }
 
 .brand__avatar img {
-  box-shadow: 0 0px 2px 3px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23); }
+  box-shadow: 0 0px 2px 3px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  background-color: #FFF; }
 
 .brand__map--top {
   -ms-flex: 3;
