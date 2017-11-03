@@ -373,8 +373,8 @@ exports.mapStores = async (req, res) => {
         $geometry: {
           type: 'Point',
           coordinates
-        },
-        $maxDistance: 4828 // 4,828km (3k miles)
+        }
+        // $maxDistance: 48280 // 48280km (3k miles)
       }
     }
   };
