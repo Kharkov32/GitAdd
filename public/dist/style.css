@@ -554,7 +554,7 @@ a {
   color: #303030; }
 
 p a {
-  border-bottom: 2px solid #FFC40E; }
+  border-bottom: 2px solid #ED8F03; }
 
 p {
   line-height: 2;
@@ -580,7 +580,7 @@ p {
     z-index: -1; }
   .title a {
     border-bottom: 0;
-    background-image: linear-gradient(to right, rgba(255, 196, 14, 0.8) 100%, rgba(255, 196, 14, 0.8) 50%); }
+    background-image: linear-gradient(to right, rgba(237, 143, 3, 0.8) 100%, rgba(237, 143, 3, 0.8) 50%); }
 
 .storeCardTitle {
   word-wrap: break-word;
@@ -612,7 +612,7 @@ label {
   background: white;
   margin-top: 1em;
   padding: 2rem;
-  box-shadow: linear-gradient(90deg, #48ded4 0%, #a026bf 20%, #e82c75 60%, #FFC40E 85%, #48ded4 95%); }
+  box-shadow: linear-gradient(90deg, #48ded4 0%, #a026bf 20%, #e82c75 60%, #ED8F03 85%, #48ded4 95%); }
   .form + .form {
     margin-top: 4rem; }
   .form h2 {
@@ -678,7 +678,7 @@ label {
     background: none;
     border: 0; }
     .flash__remove:hover {
-      color: #FFC40E; }
+      color: #ED8F03; }
   .flash:after {
     content: '';
     display: block;
@@ -980,9 +980,9 @@ label {
         background: #e6e6e6;
         padding: 1rem 1rem 1rem 4rem; }
       .tag__choice input:checked + label {
-        background: #FFC40E; }
+        background: #ED8F03; }
   .tag__link {
-    background: #FFC40E;
+    background: #ED8F03;
     color: #303030;
     display: -ms-flexbox;
     display: flex;
@@ -1150,7 +1150,7 @@ label {
     font-size: 1.2rem;
     color: #999999; }
   .review__stars {
-    color: #FFC40E; }
+    color: #ED8F03; }
   .review__body {
     padding: 2rem; }
   .review p {
@@ -1171,7 +1171,7 @@ label {
     .reviewer__stars input {
       display: none; }
       .reviewer__stars input:checked ~ label {
-        color: #FFC40E; }
+        color: #ED8F03; }
       .reviewer__stars input + label {
         font-size: 0;
         /* These are in the opposite DOM order
@@ -1197,7 +1197,7 @@ label {
           -ms-flex-order: 1;
               order: 1; }
         .reviewer__stars input + label:hover, .reviewer__stars input + label:hover ~ label {
-          color: #ffdd74; }
+          color: #fdbb59; }
   .reviewer textarea {
     border: 0;
     outline: 0;
@@ -1263,10 +1263,9 @@ label {
 
 .button {
   border: 0;
-  background: #FFC40E;
-  color: #303030;
-  font-family: 'Roboto', sans-serif;
-  font-weight: 700; }
+  background: #ED8F03;
+  color: #FFF;
+  font-family: 'Roboto', sans-serif; }
 
 .avatar {
   min-width: 50px;
@@ -1350,7 +1349,7 @@ h4.h4 {
     top: -60px;
     left: 15px; }
     .brand__map--top h4 span {
-      color: #ffc40e; }
+      color: #ED8F03; }
   .brand__map--top img {
     position: absolute;
     top: 0;
@@ -1414,7 +1413,7 @@ p.clearfix {
   position: static; }
 
 .hero__button {
-  background: #FFC40E;
+  background: #ED8F03;
   z-index: 100;
   line-height: 40px;
   text-align: center;
