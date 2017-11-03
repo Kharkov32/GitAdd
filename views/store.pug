@@ -29,10 +29,10 @@ block content
           a(href=`/store/${store.slug}`) #{store.name}
         p
           if store.reviews && store.reviews.length > 0
-            span.review__stars(title=`Rated 4 our of 5 stars`)
-              = `★`.repeat(4)
-              = `☆`.repeat(5 - 4)
-            span 4.0 by 1 user
+            span.review__stars(title=`Rated ${avg} out of 5 stars by ${store.reviews.length} users`)
+              = `★`.repeat(avg)
+              = `☆`.repeat(5 - avg)
+            span= `${avg} stars by ${store.reviews.length} users`
           else
             span No reviews yet
         .details

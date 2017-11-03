@@ -329,7 +329,12 @@ exports.updateStore = async (req, res) => {
 exports.getStoreBySlug = async (req, res, next) => {
   const store = await Store.findOne({ slug: req.params.slug }).populate('author');
   if (!store) return next();
-  res.render('store', { store, title: store.name });
+  let avg = 0;
+  for (let i = 0; i < store.reviews.length; ++i) {
+    avg += store.reviews[i].rating;
+  }
+  avg = Math.round(avg / store.reviews.length);
+  res.render('store', { store, title: store.name, avg });
 };
 
 exports.searchStores = async (req, res) => {
