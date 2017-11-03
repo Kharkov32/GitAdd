@@ -369,7 +369,7 @@ exports.mapStores = async (req, res) => {
           type: 'Point',
           coordinates
         },
-        $maxDistance: 500000 // 500km
+        $maxDistance: 4828 // 4,828km (3k miles)
       }
     }
   };
