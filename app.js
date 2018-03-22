@@ -37,10 +37,10 @@ app.use(cookieParser());
 // Sessions allow us to store data on visitors from request to request
 // This keeps users logged in and allows us to send flash messages
 app.use(session({
-  secret: process.env.SECRET,
-  key: process.env.KEY,
-    database: process.env.DATABASE,
-  resave: false,
+  secret:'tg+ffLF66oo5bXgzW1ix9SepkG238wqJhsFQdwCA',
+  key: 'AKIAIB6DOYBGV3U24OXA',
+    resave: false,
+  database: process.env.DATABASE,
   saveUninitialized: false,
   store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));

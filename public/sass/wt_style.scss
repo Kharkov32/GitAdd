@@ -1,0 +1,34 @@
+@import 'partials/variables';
+@import 'partials/layout';
+@import 'partials/footer';
+@import 'partials/normalize';
+@import 'partials/typography';
+@import 'partials/forms';
+@import 'partials/search';
+@import 'partials/flashes';
+@import 'partials/nav';
+@import 'partials/table';
+@import 'partials/store';
+@import 'partials/promoted';
+@import 'partials/product';
+@import 'partials/tag';
+@import 'partials/single';
+@import 'partials/heart';
+@import 'partials/reviews';
+@import 'partials/reviewer';
+@import 'partials/pagination';
+@import 'partials/map';
+@import 'partials/helpers';
+@import 'custom';
+@import 'tabs';
+// @import 'footer';
+@import 'responsive';
+
+footer.footer{
+  display: block;
+}
+
+header.top{
+	background-color: $brand-dark;
+	color: #fff;
+}
