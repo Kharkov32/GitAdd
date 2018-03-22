@@ -1,38 +1,47 @@
 .footer {
-  display: block;
+  display: flex;
   list-style: none;
   margin: 2rem 0 0;
   padding: 20px 10px 10px;
   align-items: center;
   justify-content: center;
-  background: #FFF;
-  border-top: 1px solid #e5e5e5;
-  box-shadow: $shad;
+  background: $brand-dark;
+  color: #fff;
   &__section {
     display: flex;
+    width: 100%;
+    max-width: 1210px;
   }
   &__item {
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
     flex-grow: 1;
     flex-basis: 0;
+    &:not(:last-child){
+      &:after{
+        content: '';
+        width: 1px;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.3);
+      }
+    }
   }
   &__link {
-    background: #FFF;
-    color: $black;
+    color: inherit;
     padding: 0.5rem 2rem 0.5rem 2rem;
     display: inline-block;
     display: flex;
-    flex-direction: column;
     align-items: left;
     justify-content: left;
     transition: transform 0.2s;
     border-bottom: 5px solid transparent;
     svg {
-      width: 40px;
+      width: 1em;
+      height: 1em;
       transition: all 0.2s;
-      fill: white;
-      margin-bottom: 1rem;
+      fill: $cbd;
+      margin-right: 0.5em;
     }
     &:hover {
       text-decoration: underline;
@@ -45,15 +54,18 @@
       }
       svg {
         width: 200px;
+        height: 100px;
+        fill: white;
         margin: 0;
       }
     }
     &--title {
       font-size: 2rem;
-      font-family: 'Roboto', sans-serif;
       font-weight: 700;
       -webkit-margin-before: 0;
       -webkit-margin-after: 0;
+      color: $cbd;
+      text-transform: uppercase;
       &:hover {
         text-decoration: none;
       }
@@ -65,12 +77,16 @@
   &__form {
     margin-top: 0!important;
   }
+  .form{
+    background-color: transparent;
+    input[type="submit"]{width: auto;margin-top: 5px;}
+  }
   &__search {
     &--search__input {
       width: 90%;
       font-size: 1.5rem;
       background: none;
-      color: $black;
+      color: inherit;
       outline: 0;
       border: 1px solid;
     }
@@ -81,6 +97,7 @@
 @media all and (max-width: 1200px) {
   .footer {
     &__link {
+      width: 100%;
       padding-left: 1rem;
       padding-right: 1rem;
       svg {
@@ -114,7 +131,7 @@
       }
     }
     &__item {
-      width: 33.333333%;
+      // width: 33.333333%;
     }
     &__link {
       width: 100%;

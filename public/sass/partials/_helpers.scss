@@ -30,3 +30,37 @@ pre.error {
   line-height: 3;
   white-space: pre-line;
 }
+.d-flex{display: flex;}
+.align-center{align-items: center;}
+.btn-brand {
+    display: inline-block;
+    font-weight: 600;
+    background: $cbd;
+    color: #fff;
+    padding: 0.8em 3em;
+    border-radius: 1.5em;
+    border: 0;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    transition: 0.3s;
+    &:hover{
+      background: #fff;
+      color: $cbd;
+    }
+}
+.btn-inverse {
+    display: inline-block;
+    color: #fff;
+    border: 1px solid currentColor;
+    font-weight: 600;
+    padding: 0.75em 2.7em;
+    border-radius: 2em;
+    transition: 0.3s;
+    &:hover{
+      background: #fff;
+      color: $cbd;
+    }
+}
+.logo-white{
+  svg{fill: #fff;}
+}
+.text-center{text-align: center;}

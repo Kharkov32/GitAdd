@@ -1,22 +1,23 @@
 @font-face {
-  font-family: 'Roboto', sans-serif;
-  src: url("https://fonts.googleapis.com/css?family=Roboto:300,400,700");
+  font-family: 'Catamaran', sans-serif;
+  src: url("https://fonts.googleapis.com/css?family=Catamaran:300,400,500,700,900");
 }
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,700');
+@import url('https://fonts.googleapis.com/css?family=Catamaran:300,400,500,700,900');
 
 html {
   font-size:10px;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Catamaran', sans-serif;
 }
 
 body {
-  font-size:1.5rem;
+  font-size:1.6rem;
   color:$black;
 }
 
 h1, h2, h3, h4, h5, h6 {
+  margin: 0;
   font-size: 4rem;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Catamaran', sans-serif;
   font-weight: 700;
 }
 
@@ -70,12 +71,15 @@ p {
   position: relative;
   z-index: 2;
   margin:0;
-  font-size: 20px;
+  font-size: 18px;
   line-height:1.1;
+  padding-left: 18px;
   &--long {
     font-size: 30px;
   }
   a {
+    color: $cbd;
+    text-transform: uppercase;
     border-bottom: 0;
   }
 }
@@ -83,3 +87,43 @@ p {
 .title--single {
   font-size: 40px;
 }
+.title--page{
+  font-weight: 900;
+  font-size: 60px;
+  margin: 1.2em 0;
+}
+.section-title{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: justify;
+  padding: 43px 0 25px;
+  &__icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid $cbd;
+    margin-right: 0.75em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    svg{
+      width: 37px;
+      max-height: 50px;
+      fill: #383D43;
+    }
+  }
+  h2{
+    font-size: 19px;
+    font-weight: 400;
+    b{color: $cbd;}
+  }
+  .link-map{margin: 0 15px;}
+  hr{
+    flex-grow: 1;
+    margin: 0 10px;
+    border-color: rgba(56, 61, 67,0.2);
+  }
+}
+
+.icon-avatar{fill: #D0D2D3;}

@@ -1,13 +1,12 @@
 .products {
   display:flex;
   flex-wrap:wrap;
-  justify-content: space-around;
 }
 
 .product {
   background:white;
   margin: 10px 0;
-  width:30%;
+  width:22%;
   box-shadow: $shad;
   &--wide {
     width: 100%;

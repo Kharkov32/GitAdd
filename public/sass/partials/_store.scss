@@ -1,13 +1,15 @@
 .stores {
   display:flex;
   flex-wrap:wrap;
-  justify-content:space-between;
+  // justify-content:space-between;
+  padding: 25px 0;
 }
 
 .store {
   background:white;
   margin: 10px 0;
-  width:30%;
+  width:22%;
+  margin-right: 2%;
   min-width: 200px;
   box-shadow: $shad;
   &--wide {
@@ -59,7 +61,7 @@
   position: relative;
   // padding: 0 10px 0 10px; // commented 
   text-align: left;
-  height: 200px;
+  height: 210px;
   overflow: hidden;
   img {
     height: 100%;
