@@ -1,14 +1,31 @@
+.inner_title {
+  margin: 0;
+  padding: 0 0;
+  text-align: center;
+  font-size: 40px;
+  font-weight: 400;
+  color: #fff;
+}
+.text-center {
+  text-align: center!important;
+}
 h4.h4 {
   font-size: 22px;
   color: white;
 }
 .banner{
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
   min-height: 250px;
-  &--main{
-    background: url(../images/bg-dark-marble.jpg);
+  &__main{
+    background: url(../images/photos/bg-dark-marble.jpg);
     background-size: cover;
   }
   &__title{
@@ -28,13 +45,13 @@ h4.h4 {
   }
 }
 .bg-grey-top{
-  background: #fff url(../images/bg-grey-top.png);
+  background: #fff url(../images/photos/bg-grey-top.png);
   background-repeat: no-repeat;
   background-position: left top;
   background-size: 100%;
 }
 .bg-flame-top{
-  background: url(../images/bg-flame2.png);
+  background: url(../images/photos/bg-flame2.png);
   background-repeat: no-repeat;
   background-position: center top;
 }
@@ -168,7 +185,7 @@ p.clearfix {
 .single__hero:before {
   background-color: rgba(0, 0, 0, .8);
 }
-.tabs{margin-top: 10px;}
+.tabs{margin-top: 10px;    background: #fff;}
 
 // products custom styles
 .product {
@@ -322,18 +339,17 @@ p.clearfix {
   background-color: $brand-dark;
   color: #fff;
   p{
-    display: flex;
     align-items: center;
     font-size: 14px;
     margin: 2.5rem 0 0;
-    text-align: left;
   }
   svg {
     flex-shrink: 0;
-    margin-right: 9px;
-    width: 9px;
+    margin-right: 0px;
+    width: 14px;
     height: 14px;
     fill: #a6a8ab;
+    float: left;
   }
   &.text-center{
     text-align: center;
@@ -359,7 +375,7 @@ p.clearfix {
 .about-block{
   margin-top: 70px;
   padding: 28px 0;
-  background: $brand-dark url(../images/bg-flame1.png);
+  background: $brand-dark url(../images/photos/bg-flame1.png);
   background-position: right top;
   background-repeat: no-repeat;
   background-size: 70% 100%;
@@ -377,7 +393,7 @@ p.clearfix {
 }
 .newsletter-block{
   padding: 45px 0;
-  background: url(../images/planes-left.png), url(../images/planes-right.png);
+  background: url(../images/photos/planes-left.png), url(../images/photos/planes-right.png);
   background-repeat: no-repeat;
   background-position: 20% -138px, 85% -26px;
   &__text {
@@ -405,16 +421,28 @@ p.clearfix {
     .btn-brand{width: auto;margin-top: 1em;}
   }
 }
+.breadcrumbs_product li:before {
+  content: '>>';
+  color: $grey;
+  display: inline-block;
+}
+.padding {
+  padding-left: 5%;
+}
 // Breadcrumbs
 .breadcrumbs{
   margin: 25px 0;
+  padding-left: 3%;
   padding: 0;
   list-style: none;
+  display: inline-block;
+  position: relative;
+  z-index: 300;
   li{
     display: inline-block;
     font-weight: 700;
     a{color: inherit;}
-    &.active{color: $cbd;}
+    &.active{color: $cbd!important;}
      + li:before{
       content: '>>';
       color: $grey;

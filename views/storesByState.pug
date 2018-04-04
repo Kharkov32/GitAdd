@@ -4,8 +4,13 @@ include mixins/_storeCard
 include mixins/_promotedStoreCard
 
 block content
+  .banner.banner__main
+    h1.inner_title
+      span.color-brand.font-large(style="color: #ff8800;font-size: 46px;display: block; margin: auto;") Search result:
+      span.font-bold(style="font-weight: 900;display: block; margin: auto;")= title
+      //
+      //span.font-bold=
   .inner
-    h2= title
     if promoted && stores
       .stores
         each store in stores

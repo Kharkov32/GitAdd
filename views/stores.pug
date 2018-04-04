@@ -4,8 +4,10 @@ include mixins/_storeCard
 include mixins/_pagination
 
 block content
+  .banner.banner__main
+    h2.inner_title
+      span.font-bold(style="font-weight: 900;display: block; margin: auto;")= title
   .inner
-    h2= title
     .stores
       each store in stores
         +storeCard(store)

@@ -1,5 +1,3 @@
-
-
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -1169,7 +1167,7 @@ function removeTabs() {
     return t.addEventListener("click", handleClick);
   });
   if ((0, _bling.$)(".open")) {
-    if ((0, _bling.$)(".open")) (0, _bling.$)(".open").classList.remove(".open");
+    if ((0, _bling.$)(".open")) (0, _bling.$)(".open").classList.remove("open");
     document.querySelectorAll(".tablinks").forEach(function (tl) {
       return tl.style.display = "none";
     });
@@ -2980,31 +2978,3 @@ heartForms.on("submit", _heart2.default);
 /***/ })
 /******/ ]);
 //# sourceMappingURL=App.bundle.js.map
-
-
-jQuery(document).ready(function () {
-      jQuery('.btn-toggler').on('click', function () {
-          jQuery(this).toggleClass('active');
-          jQuery(this).next('ul').slideToggle();
-          jQuery('body').toggleClass('nav-open');
-      });
-      if(jQuery(window).width() < 768){
-          jQuery('.search__icon').on('click', function (e) {
-              jQuery(this).parents('.search').toggleClass('active');
-
-              jQuery(this).parents('.nav__section--search').siblings('.nav__item').toggleClass('hidden');
-          });
-
-      }
-
-  });
-  jQuery(window).resize(function () {
-      if(jQuery(window).width() < 768){
-          jQuery('.search__icon').on('click', function (e) {
-              jQuery(this).parents('.search').toggleClass('active');
-
-              jQuery(this).parents('.nav__section--search').siblings('.nav__item').toggleClass('hidden');
-          });
-
-      }
-  })

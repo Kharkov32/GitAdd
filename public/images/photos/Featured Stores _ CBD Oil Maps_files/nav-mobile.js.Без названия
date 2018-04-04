@@ -1,0 +1,26 @@
+jQuery(document).ready(function () {
+	jQuery('.btn-toggler').on('click', function () {
+		jQuery(this).toggleClass('active');
+		jQuery(this).next('ul').slideToggle();
+		jQuery('body').toggleClass('nav-open');
+	});
+	if(jQuery(window).width() < 768){
+		jQuery('.search__icon').on('click', function (e) {
+			jQuery(this).parents('.search').toggleClass('active');
+
+			jQuery(this).parents('.nav__section--search').siblings('.nav__item').toggleClass('hidden');
+		});
+		
+	}
+		
+});
+jQuery(window).resize(function () {
+	if(jQuery(window).width() < 768){
+		jQuery('.search__icon').on('click', function (e) {
+			jQuery(this).parents('.search').toggleClass('active');
+
+			jQuery(this).parents('.nav__section--search').siblings('.nav__item').toggleClass('hidden');
+		});
+		
+	}
+})

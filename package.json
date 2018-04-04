@@ -4,7 +4,6 @@
   "private": true,
   "engines": {
     "node": ">= 7.6.0"
-
   },
   "scripts": {
     "start": "node ./start.js",
@@ -31,7 +30,9 @@
     "forever": "^0.15.3",
     "glob": "^7.1.1",
     "html-to-text": "^3.2.0",
+    "jade": "^1.11.0",
     "jimp": "^0.2.27",
+    "jquery": "^3.3.1",
     "juice": "^4.0.2",
     "md5": "^2.2.1",
     "moment": "^2.17.1",
@@ -46,7 +47,8 @@
     "sitemap-generator": "^7.2.3",
     "slugs": "^0.1.3",
     "uuid": "^3.0.1",
-    "validator": "^7.0.0"
+    "validator": "^7.0.0",
+    "vui-breadcrumbs": "^2.1.0"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.7",

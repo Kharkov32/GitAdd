@@ -14,6 +14,9 @@ const helpers = require('./helpers');
 const errorHandlers = require('./handlers/errorHandlers');
 require('./handlers/passport');
 
+var $ = require('jQuery');
+
+
 // create our Express app
 const app = express();
 
@@ -40,7 +43,7 @@ app.use(session({
   secret:'tg+ffLF66oo5bXgzW1ix9SepkG238wqJhsFQdwCA',
   key: 'AKIAIB6DOYBGV3U24OXA',
     resave: false,
-  database: process.env.DATABASE,
+  database: "mongodb://cbdoilroot:cbdoilroot@ds133271.mlab.com:33271/cbdoilmaps",
   saveUninitialized: false,
   store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));

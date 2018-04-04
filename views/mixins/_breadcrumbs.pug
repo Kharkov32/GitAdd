@@ -1,0 +1,20 @@
+mixin breadcrumbs(levels)
+    .breadcrumbs
+        ul.breadcrumbs.breadcrumbs--light
+            each level, index in levels
+                - var count = index + 1
+                - var link = level[1]
+
+                li.st-Breadcrumb_Item(itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem")
+
+                    if count != levels.length
+                        a.st-Breadcrumb_Link(href=link itemprop="item")
+                            span(itemprop="name") #{level[0]}
+                        meta(itemprop="position" content!=count)
+
+
+                    else
+                        a.st-Breadcrumb_Link(href=link itemprop="item" aria-current="page")
+                            span(itemprop="name") #{level[0]}
+                        meta(itemprop="position" content!=count)
+

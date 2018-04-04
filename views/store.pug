@@ -3,6 +3,8 @@ extends layout
 include mixins/_reviewForm
 include mixins/_storeProduct
 include mixins/_review
+include mixins/_breadcrumbs
+
 
 block content
   .single
@@ -14,39 +16,51 @@ block content
           img.single__image(src=`https://s3.amazonaws.com/cbdoilmaps-public-images/stores/${store.banner}` alt=`${store.name} Banner image`)
       else
         img.single__image(src=h.staticMap(store.location.coordinates) alt=`${store.name} Google Maps Location`)
-      a.button.hero__button(href=`/stores`) All Stores
+      .inner
+        +breadcrumbs([
+              ["Home", "/"],
+              ["Stores", "/stores/"]
+        ])
+        ul.breadcrumbs.breadcrumbs--light.breadcrumbs_product
+          li.st-Breadcrumb_Item.active
+            a.active(href=`/store/${store.slug}`) #{store.name}
+
+
+
       if user && store.author.equals(user._id)
         a.button.hero__button.hero__button__edit(href=`/stores/${store._id}/edit`) Edit Store
-
-  .single__details.inner
-    .brand__avatar
-      if (store.photoAlt)
-        img(src=`https://s3.amazonaws.com/cbdoilmaps-public-images/stores/${store.photo || 'placeholder.jpeg'}` alt=store.photoAlt style="width: 200px;height:200px;background-color:white; object-fit:contain;")
-      else
-        img(src=`https://s3.amazonaws.com/cbdoilmaps-public-images/stores/${store.photo || 'placeholder.jpeg'}` alt=`${store.name} Logo image` style="width: 200px;height:200px;background-color:white;")
-      .preview
-        h2.storeCardTitle.title--single
-          a(href=`/store/${store.slug}`) #{store.name}
-        p
-          if store.reviews && store.reviews.length > 0
-            span.review__stars(title=`Rated ${avg} out of 5 stars by ${store.reviews.length} users`)
-              = `★`.repeat(avg)
-              = `☆`.repeat(5 - avg)
-            span= `${avg} stars by ${store.reviews.length} users`
+  .single__details
+    .inner
+      .brand__avatar
+        .brand__image
+          if (store.photoAlt)
+            img(src=`https://s3.amazonaws.com/cbdoilmaps-public-images/stores/${store.photo || 'placeholder.jpeg'}` alt=store.photoAlt)
           else
-            span No reviews yet
-        .details
-          p.url
-            a(href=`${store.website}`, target='_blank', style="border-bottom:none; text-decoration:underline;")= store.website
-          p.address= store.location.address
-
-    if (store.banner)
-      .brand__map
-        .brand__map--top
-          .map-wrapper
-            img(src=h.staticMap(store.location.coordinates) alt=`${store.name} Google Maps Location`)
-        .brand__map--bottom
-          .listing-list
+            img(src=`https://s3.amazonaws.com/cbdoilmaps-public-images/stores/${store.photo || 'placeholder.jpeg'}` alt=`${store.name} Logo image` )
+        .preview
+          h2.storeCardTitle.title--single
+            a(href=`/store/${store.slug}`) #{store.name}
+          //p
+          //  if store.reviews && store.reviews.length > 0
+          //    span.review__stars(title=`Rated ${avg} out of 5 stars by ${store.reviews.length} users`)
+          //      = `★`.repeat(avg)
+          //      = `☆`.repeat(5 - avg)
+          //    span= `${avg} stars by ${store.reviews.length} users`
+          //  else
+          //    span No reviews yet
+          .details
+            p.address
+              != h.icon('stores_icon')
+              span= store.location.address
+            p.url
+              a(href=`${store.website}`, target='_blank', style="border-bottom:none; text-decoration:underline;")= store.website
+        if (store.banner)
+          .brand__map
+            .brand__map--top
+              .map-wrapper
+                img(src=h.staticMap(store.location.coordinates) alt=`${store.name} Google Maps Location`)
+            .brand__map--bottom
+              .listing-list
 
     p.clearfix
     
@@ -57,7 +71,7 @@ block content
         a.button.tablinks(data-open="reviews") Reviews
 
       .description.tabcontent.open
-        h2.storeCardTitle.title--single
+        //h2.storeCardTitle.title--single
           a=store.name
         p= store.description
       .products.tabcontent

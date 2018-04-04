@@ -18,19 +18,14 @@
     background-attachment: fixed;
   }
   &__header {
-    border-bottom: 1px solid $grey;
     display: flex;
     & > * {
       // this is fine, don't email me about it
-      border-right: 1px solid $grey;
       padding: 0.2rem;
       display: flex;
       align-items: center;
       flex: 1;
-      justify-content: center;
-      &:last-child {
-        border-right: 0;
-      }
+      padding-left: 50px;
     }
   }
   &__author {
@@ -44,6 +39,9 @@
   &__time {
     font-size: 1.2rem;
     color: lighten(black, 60%);
+    display: block;
+    padding-right: 50px;
+    text-align: right;
   }
   &__stars {
     color: $yellow;

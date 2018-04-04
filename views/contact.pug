@@ -1,8 +1,10 @@
 extends layout
 
 block content
+  .banner.banner__main
+    h2.inner_title
+      span.color-brand.font-large(style="color: #ff8800;font-size: 46px;display: block; margin: auto;")= title
   .inner
-    h2= title
     form.form(action="/contact" method="POST")
       label(for="name") Name
       input(id="name" name="name")

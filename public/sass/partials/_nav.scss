@@ -1,3 +1,30 @@
+header.top {
+    background-color: #383d43;
+    color: #fff;
+}
+.registration {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+    a {
+    margin: 0 1em;
+    padding: 1.2rem 2rem 1rem 2rem;
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #ff8800;
+    background-color: transparent;
+    border: 1px solid #ff8800;
+    border-radius: 6px;
+    -webkit-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+      align-self: auto;
+  }
+}
 .nav {
   display: flex;
   list-style: none;
@@ -69,6 +96,9 @@
       }
       background: $cbd;
       // background: none;
+      &-st0,&-st1 {
+        fill: #fff;
+      }
     }
     &--logo {
       width: 190px;

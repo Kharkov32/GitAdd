@@ -13,5 +13,7 @@ mixin storeCard(store = {})
       .store__details
         h2.storeCardTitle
           a(href=`/store/${store.slug}`) #{store.name}
-        p= store.location.address
-        //- p= store.website
+        p
+          != h.icon('stores_icon')
+          span(style="display: block;padding-left: 14px;")= store.location.address
+        //- p= store.websitep

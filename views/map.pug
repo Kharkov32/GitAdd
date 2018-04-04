@@ -1,10 +1,10 @@
 extends layout
 
 block content
+  h2.inner_title(style='color:#ED8F03;margin-bottom: 5px;')= title
   .inner
-    h2= title
     .map
       .autocomplete
         input.autocomplete__input(type="text" placeholder="Search location" name="geolocate")
-      #map
+        #map
         p Loading Map...

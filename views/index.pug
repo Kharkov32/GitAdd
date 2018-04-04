@@ -4,20 +4,88 @@ include mixins/_storeCard
 include mixins/_promotedStoreCard
 
 block content
+  .banner.banner__main
+      h1.inner_title
+        span.font-bold(style="font-weight: 900;display: block; margin: auto;") WELCOME TO
+        span.color-brand.font-large(style="color: #ff8800;font-size: 46px;display: block; margin: auto;") CBD Oil Maps
   .inner
-    h2(style='color:#ED8F03;margin-bottom: 5px;')= title
     if top
+      .section-title
+          span.section-title__icon
+            != h.icon('store_home')
+          h2(style='color:#383d43;margin-bottom: 5px;') Featured
+            b Stores
+          hr
+          a.link-map
+              != h.icon('store_mapes')
+              span Map
+
+          a.btn-brand.hidden-xs View all
       .stores
         each store in top
           +storeCard(store.store)
+
+      .text-center.visible-xs
+        a.btn-brand(href="#") View all
+
         if banner
-          h2(style='color:#ED8F03;margin-bottom: 5px;') Featured Store
           .promoted
+            .section-title
+                span.section-title__icon
+                    != h.icon('store_home')
+                h2(style='color:#383d43;margin-bottom: 5px;') Featured
+                    b Store
+                hr
+                a.link-map
+                    != h.icon('store_mapes')
+                    span Map
+
+                a.btn-brand.hidden-xs View all
             +promotedStoreCard(banner.store)
+
+      .text-center.visible-xs
+          a.btn-brand(href="#") View all
       if bottom.length > 0
-        h2(style='color:#ED8F03;margin-bottom: 5px;') Featured Wholesalers
+        span
+            .section-title
+                span.section-title__icon
+                    != h.icon('store_home')
+                h2(style='color:#383d43;margin-bottom: 5px;') Featured
+                    b Wholesalers
+                hr
+                a.link-map
+                    != h.icon('store_mapes')
+                    span Map
+
+                a.btn-brand.hidden-xs View all
         .stores
+
+
           each store in bottom
             +storeCard(store.store)
+
     else
       p No stores found
+
+    .text-center.visible-xs
+       a.btn-brand(href="#") View all
+
+  .about-block
+      .inner
+          .d-flex.align-center
+              span.logo.logo-white
+                  != h.icon('logo')
+              span.about-block__text
+                h3 About Us
+                p CBD Oil Maps is an online community where CBD oil enthusiasts can connect with users and business in their area to review and discuss local CBD oil dis pensaries and their products. Listing is completely free for both businesses and customers. Premium advertising is available? if <desired></desired>
+                a.btn-inverse(href='/about')
+                    span Learn More
+  .newsletter-block
+      .inner
+          .newsletter-block__text
+              h3 Newsletter
+              p Sign up to our newsletter to get special offers & updates!
+              .newsletter-block__form
+                  form
+                      input.form-control(type="email" placeholder="Your@email.com" name="email")
+                      input.btn-brand(type="submit" value="Subscribe" name="submit")
